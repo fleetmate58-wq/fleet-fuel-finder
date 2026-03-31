@@ -38,7 +38,7 @@ const FAQSection = ({ prices }: FAQSectionProps) => {
 
   return (
     <section className="container mx-auto px-4 py-12">
-      <h2 className="text-2xl font-heading font-bold mb-2">Frequently Asked Questions</h2>
+      <h2 className="text-2xl font-bold mb-2">Frequently Asked Questions</h2>
       <div className="w-12 h-0.5 bg-primary mb-6"></div>
 
       <div className="space-y-2 max-w-3xl">
@@ -46,7 +46,7 @@ const FAQSection = ({ prices }: FAQSectionProps) => {
           <div key={i} className="bg-card border border-border rounded-sm overflow-hidden">
             <button
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
-              className="w-full flex items-center justify-between px-5 py-4 text-left font-heading font-semibold text-sm hover:bg-accent transition-colors"
+              className="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-sm hover:bg-accent transition-colors"
               aria-expanded={openIndex === i}
               aria-label={faq.q}
             >
@@ -54,7 +54,7 @@ const FAQSection = ({ prices }: FAQSectionProps) => {
               <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-300 flex-shrink-0 ${openIndex === i ? 'rotate-180' : ''}`} />
             </button>
             <div className={`overflow-hidden transition-all duration-300 ${openIndex === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-              <p className="px-5 pb-4 text-sm text-muted-foreground font-body leading-relaxed">{faq.a}</p>
+              <p className="px-5 pb-4 text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
             </div>
           </div>
         ))}
