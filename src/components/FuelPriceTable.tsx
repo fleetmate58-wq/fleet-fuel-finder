@@ -44,14 +44,14 @@ const FuelPriceTable = ({ state, prices }: FuelPriceTableProps) => {
   };
 
   const SortHeader = ({ label, sk }: { label: string; sk: SortKey }) => (
-    <th className="px-4 py-3 text-left text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground transition-colors" onClick={() => toggleSort(sk)}>
+    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground transition-colors" onClick={() => toggleSort(sk)}>
       {label} {sortKey === sk && (sortDir === 'asc' ? '↑' : '↓')}
     </th>
   );
 
   return (
     <section className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-heading font-bold mb-2">{state} Fuel Prices Today</h2>
+      <h2 className="text-2xl font-bold mb-2">{state} Fuel Prices Today</h2>
       <div className="w-12 h-0.5 bg-primary mb-6"></div>
 
       <div className="hidden md:block overflow-x-auto">
@@ -62,8 +62,8 @@ const FuelPriceTable = ({ state, prices }: FuelPriceTableProps) => {
               <SortHeader label="Today's Avg (¢/L)" sk="today" />
               <SortHeader label="Yesterday" sk="yesterday" />
               <SortHeader label="Change" sk="change" />
-              <th className="px-4 py-3 text-left text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider">Cheapest Station</th>
-              <th className="px-4 py-3 text-left text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider">Suburb</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">Cheapest Station</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">Suburb</th>
             </tr>
           </thead>
           <tbody>
@@ -72,7 +72,7 @@ const FuelPriceTable = ({ state, prices }: FuelPriceTableProps) => {
                 key={row.key}
                 className={`${i % 2 === 0 ? 'bg-card' : 'bg-accent'} ${row.key === 'diesel' ? 'border-l-2 border-l-primary' : ''} transition-colors`}
               >
-                <td className="px-4 py-3 font-body font-medium">{row.label}</td>
+                <td className="px-4 py-3 font-medium">{row.label}</td>
                 <td className="px-4 py-3 font-mono text-primary font-semibold">{formatPrice(row.today)}¢</td>
                 <td className="px-4 py-3 font-mono text-muted-foreground">{formatPrice(row.yesterday)}¢</td>
                 <td className="px-4 py-3">
@@ -81,8 +81,8 @@ const FuelPriceTable = ({ state, prices }: FuelPriceTableProps) => {
                     {Math.abs(row.change).toFixed(1)}¢
                   </span>
                 </td>
-                <td className="px-4 py-3 font-body text-muted-foreground">{row.station?.name ?? '—'}</td>
-                <td className="px-4 py-3 font-body text-muted-foreground">{row.station?.suburb ?? '—'}</td>
+                <td className="px-4 py-3 text-muted-foreground">{row.station?.name ?? '—'}</td>
+                <td className="px-4 py-3 text-muted-foreground">{row.station?.suburb ?? '—'}</td>
               </tr>
             ))}
           </tbody>
@@ -93,7 +93,7 @@ const FuelPriceTable = ({ state, prices }: FuelPriceTableProps) => {
         {rows.map((row) => (
           <div key={row.key} className={`bg-card p-4 rounded-lg border border-border ${row.key === 'diesel' ? 'border-l-2 border-l-primary' : ''}`}>
             <div className="flex justify-between items-center mb-2">
-              <span className="font-heading font-semibold">{row.label}</span>
+              <span className="font-semibold">{row.label}</span>
               <span className="font-mono text-primary text-lg font-bold">{formatPrice(row.today)}¢/L</span>
             </div>
             <div className="flex justify-between text-sm text-muted-foreground">

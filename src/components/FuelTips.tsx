@@ -29,16 +29,16 @@ const tips = [
 
 const FuelTips = () => (
   <section className="container mx-auto px-4 py-12">
-    <h2 className="text-2xl font-heading font-bold mb-2">How Australian Fleet Managers Can Reduce Fuel Costs</h2>
+    <h2 className="text-2xl font-bold mb-2">How Australian Fleet Managers Can Reduce Fuel Costs</h2>
     <div className="w-12 h-0.5 bg-primary mb-8"></div>
 
     <div className="grid md:grid-cols-2 gap-6">
       {tips.map((tip) => (
-        <div key={tip.title} className="bg-card border border-border rounded-lg p-6 hover:border-primary/30 transition-colors">
+        <div key={tip.title} className="bg-card border border-border rounded-lg p-6 hover:shadow-md transition-shadow">
           <tip.icon className="w-8 h-8 text-primary mb-4" aria-hidden="true" />
-          <h3 className="font-heading font-bold text-lg mb-3">{tip.title}</h3>
-          <p className="text-muted-foreground font-body text-sm leading-relaxed mb-4">{tip.text}</p>
-          <a href={tip.link.href} target="_blank" rel="noopener noreferrer" className="text-primary text-sm font-body font-medium hover:underline">
+          <h3 className="font-bold text-lg mb-3">{tip.title}</h3>
+          <p className="text-muted-foreground text-sm leading-relaxed mb-4">{tip.text}</p>
+          <a href={tip.link.href} target="_blank" rel="noopener noreferrer" className="text-primary text-sm font-medium hover:underline">
             {tip.link.label} →
           </a>
         </div>

@@ -28,7 +28,7 @@ const SuburbSearch = () => {
 
   return (
     <section className="container mx-auto px-4 py-12" id="search">
-      <h2 className="text-2xl font-heading font-bold mb-2">Find Cheapest Fuel Near You</h2>
+      <h2 className="text-2xl font-bold mb-2">Find Cheapest Fuel Near You</h2>
       <div className="w-12 h-0.5 bg-primary mb-6"></div>
 
       <div className="bg-card border border-border rounded-lg p-6">
@@ -41,7 +41,7 @@ const SuburbSearch = () => {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               placeholder="Enter suburb or postcode..."
-              className="w-full bg-accent border border-border rounded-sm pl-10 pr-4 py-3 text-foreground font-body placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full bg-accent border border-border rounded-lg pl-10 pr-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
               aria-label="Search suburb or postcode for fuel prices in Australia"
             />
           </div>
@@ -49,7 +49,7 @@ const SuburbSearch = () => {
           <select
             value={fuelType}
             onChange={(e) => setFuelType(e.target.value)}
-            className="bg-accent border border-border rounded-sm px-4 py-3 text-foreground font-body focus:outline-none focus:ring-1 focus:ring-primary"
+            className="bg-accent border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             aria-label="Select fuel type"
           >
             {FUEL_OPTIONS.map(f => <option key={f} value={f}>{f}</option>)}
@@ -58,7 +58,7 @@ const SuburbSearch = () => {
           <select
             value={radius}
             onChange={(e) => setRadius(Number(e.target.value))}
-            className="bg-accent border border-border rounded-sm px-4 py-3 text-foreground font-body focus:outline-none focus:ring-1 focus:ring-primary"
+            className="bg-accent border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             aria-label="Select search radius"
           >
             {RADIUS_OPTIONS.map(r => <option key={r} value={r}>{r} km</option>)}
@@ -66,7 +66,7 @@ const SuburbSearch = () => {
 
           <button
             onClick={handleSearch}
-            className="bg-primary text-primary-foreground font-heading font-semibold px-6 py-3 rounded-sm hover:opacity-90 transition-all"
+            className="bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-all"
             aria-label="Search for cheapest fuel stations"
           >
             Search
@@ -76,17 +76,17 @@ const SuburbSearch = () => {
         {searched && results && (
           <div className="space-y-3 mt-6">
             {results.map((r, i) => (
-              <div key={i} className="flex flex-col md:flex-row md:items-center justify-between bg-accent border border-border rounded-sm p-4 gap-3">
+              <div key={i} className="flex flex-col md:flex-row md:items-center justify-between bg-accent border border-border rounded-lg p-4 gap-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-heading font-semibold">{r.name}</span>
-                    <span className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-sm">{r.brand}</span>
+                    <span className="font-semibold">{r.name}</span>
+                    <span className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-lg">{r.brand}</span>
                   </div>
                   <p className="text-sm text-muted-foreground">{r.address}</p>
                   <p className="text-xs text-muted-foreground mt-1">{r.distance} km away · {r.lastReported}</p>
                 </div>
                 <div className="font-mono text-2xl font-bold text-primary">
-                  {r.price.toFixed(1)}¢<span className="text-sm text-muted-foreground font-body">/L</span>
+                  {r.price.toFixed(1)}¢<span className="text-sm text-muted-foreground">/L</span>
                 </div>
               </div>
             ))}

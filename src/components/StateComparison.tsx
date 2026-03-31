@@ -10,18 +10,18 @@ const StateComparison = ({ prices }: StateComparisonProps) => {
 
   return (
     <section className="container mx-auto px-4 py-12">
-      <h2 className="text-2xl font-heading font-bold mb-2">Fuel Price Comparison by State — Today</h2>
+      <h2 className="text-2xl font-bold mb-2">Fuel Price Comparison by State — Today</h2>
       <div className="w-12 h-0.5 bg-primary mb-6"></div>
 
       <div className="overflow-x-auto">
         <table className="w-full text-sm" aria-label="Australian fuel price comparison by state">
           <thead>
             <tr className="border-b border-border">
-              <th className="px-4 py-3 text-left text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider">State</th>
-              <th className="px-4 py-3 text-left text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider">ULP 91 (¢/L)</th>
-              <th className="px-4 py-3 text-left text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider">Diesel (¢/L)</th>
-              <th className="px-4 py-3 text-left text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider">vs NSW ULP</th>
-              <th className="px-4 py-3 text-left text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider">vs NSW Diesel</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">State</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">ULP 91 (¢/L)</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">Diesel (¢/L)</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">vs NSW ULP</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">vs NSW Diesel</th>
             </tr>
           </thead>
           <tbody>
@@ -32,7 +32,7 @@ const StateComparison = ({ prices }: StateComparisonProps) => {
 
               return (
                 <tr key={state} className={`${i % 2 === 0 ? 'bg-card' : 'bg-accent'} transition-colors`}>
-                  <td className="px-4 py-3 font-heading font-semibold">{state}</td>
+                  <td className="px-4 py-3 font-semibold">{state}</td>
                   <td className={`px-4 py-3 font-mono font-semibold ${state === cheapestUlp ? 'text-success' : 'text-foreground'}`}>
                     {formatPrice(sp.ulp91)}¢ {state === cheapestUlp && <span className="text-xs">✓ Cheapest</span>}
                   </td>
@@ -51,7 +51,7 @@ const StateComparison = ({ prices }: StateComparisonProps) => {
           </tbody>
         </table>
       </div>
-      <p className="text-xs text-muted-foreground mt-4 font-body">
+      <p className="text-xs text-muted-foreground mt-4">
         Prices sourced from official government fuel monitoring schemes. Updated every 30 minutes.
       </p>
     </section>

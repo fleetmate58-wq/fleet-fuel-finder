@@ -75,13 +75,13 @@ const FuelMap = () => {
 
   return (
     <section className="container mx-auto px-4 py-12">
-      <h2 className="text-2xl font-heading font-bold mb-2 flex items-center gap-2">
+      <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
         <MapPin className="w-5 h-5 text-primary" aria-hidden="true" />
         Fuel Station Map — Sydney
       </h2>
       <div className="w-12 h-0.5 bg-primary mb-6"></div>
 
-      <div className="flex gap-4 mb-4 text-sm font-body">
+      <div className="flex gap-4 mb-4 text-sm">
         <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-success inline-block"></span> Cheap (&lt;175¢)</span>
         <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span> Mid (175–182¢)</span>
         <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-destructive inline-block"></span> Expensive (&gt;182¢)</span>
@@ -90,7 +90,7 @@ const FuelMap = () => {
       <div className="relative rounded-lg overflow-hidden border border-border" style={{ height: '480px' }}>
         {!mapLoaded && (
           <div className="absolute inset-0 bg-card flex items-center justify-center">
-            <div className="animate-pulse text-muted-foreground font-body">Loading map...</div>
+            <div className="animate-pulse text-muted-foreground">Loading map...</div>
           </div>
         )}
         <div ref={mapRef} className="w-full h-full" aria-label="Interactive fuel station map of Sydney Australia" />
