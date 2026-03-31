@@ -18,11 +18,11 @@ const TrendChart = () => {
             <YAxis domain={['auto', 'auto']} stroke="hsl(215 16% 47%)" tick={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12 }} tickFormatter={(v) => `${v}¢`} />
             <Tooltip
               contentStyle={{
-                backgroundColor: 'hsl(222 43% 11%)',
-                border: '1px solid hsl(213 33% 17%)',
+                backgroundColor: 'hsl(0 0% 100%)',
+                border: '1px solid hsl(214 20% 88%)',
                 borderRadius: '4px',
                 fontFamily: "'DM Sans', sans-serif",
-                color: '#fff',
+                color: 'hsl(222 47% 11%)',
               }}
               formatter={(value: number) => [`${value}¢/L`]}
               labelStyle={{ color: 'hsl(215 19% 65%)' }}
