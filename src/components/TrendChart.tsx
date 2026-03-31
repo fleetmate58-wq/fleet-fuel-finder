@@ -14,8 +14,8 @@ const TrendChart = () => {
         <ResponsiveContainer width="100%" height={360}>
           <LineChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(214 20% 88%)" />
-            <XAxis dataKey="day" stroke="hsl(215 19% 65%)" tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }} />
-            <YAxis domain={['auto', 'auto']} stroke="hsl(215 19% 65%)" tick={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12 }} tickFormatter={(v) => `${v}¢`} />
+            <XAxis dataKey="day" stroke="hsl(215 16% 47%)" tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }} />
+            <YAxis domain={['auto', 'auto']} stroke="hsl(215 16% 47%)" tick={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12 }} tickFormatter={(v) => `${v}¢`} />
             <Tooltip
               contentStyle={{
                 backgroundColor: 'hsl(222 43% 11%)',
