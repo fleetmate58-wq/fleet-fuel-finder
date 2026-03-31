@@ -1,8 +1,12 @@
-import { FALLBACK_PRICES, STATES, type StateCode, formatPrice } from '@/utils/fuelData';
+import { type FuelPrices, type StateCode, STATES, formatPrice } from '@/utils/fuelData';
 
-const StateComparison = () => {
-  const cheapestUlp = STATES.reduce((min, s) => FALLBACK_PRICES[s].ulp91 < FALLBACK_PRICES[min].ulp91 ? s : min, STATES[0]);
-  const cheapestDiesel = STATES.reduce((min, s) => FALLBACK_PRICES[s].diesel < FALLBACK_PRICES[min].diesel ? s : min, STATES[0]);
+interface StateComparisonProps {
+  prices: Record<StateCode, FuelPrices>;
+}
+
+const StateComparison = ({ prices }: StateComparisonProps) => {
+  const cheapestUlp = STATES.reduce((min, s) => prices[s].ulp91 < prices[min].ulp91 ? s : min, STATES[0]);
+  const cheapestDiesel = STATES.reduce((min, s) => prices[s].diesel < prices[min].diesel ? s : min, STATES[0]);
 
   return (
     <section className="container mx-auto px-4 py-12">
@@ -22,20 +26,18 @@ const StateComparison = () => {
           </thead>
           <tbody>
             {STATES.map((state, i) => {
-              const prices = FALLBACK_PRICES[state];
-              const ulpDiff = +(prices.ulp91 - FALLBACK_PRICES.NSW.ulp91).toFixed(1);
-              const dieselDiff = +(prices.diesel - FALLBACK_PRICES.NSW.diesel).toFixed(1);
-              const isCheapestUlp = state === cheapestUlp;
-              const isCheapestDiesel = state === cheapestDiesel;
+              const sp = prices[state];
+              const ulpDiff = +(sp.ulp91 - prices.NSW.ulp91).toFixed(1);
+              const dieselDiff = +(sp.diesel - prices.NSW.diesel).toFixed(1);
 
               return (
                 <tr key={state} className={`${i % 2 === 0 ? 'bg-card' : 'bg-accent'} transition-colors`}>
                   <td className="px-4 py-3 font-heading font-semibold">{state}</td>
-                  <td className={`px-4 py-3 font-mono font-semibold ${isCheapestUlp ? 'text-success' : 'text-foreground'}`}>
-                    {formatPrice(prices.ulp91)}¢ {isCheapestUlp && <span className="text-xs">✓ Cheapest</span>}
+                  <td className={`px-4 py-3 font-mono font-semibold ${state === cheapestUlp ? 'text-success' : 'text-foreground'}`}>
+                    {formatPrice(sp.ulp91)}¢ {state === cheapestUlp && <span className="text-xs">✓ Cheapest</span>}
                   </td>
-                  <td className={`px-4 py-3 font-mono font-semibold ${isCheapestDiesel ? 'text-success' : 'text-foreground'}`}>
-                    {formatPrice(prices.diesel)}¢ {isCheapestDiesel && <span className="text-xs">✓ Cheapest</span>}
+                  <td className={`px-4 py-3 font-mono font-semibold ${state === cheapestDiesel ? 'text-success' : 'text-foreground'}`}>
+                    {formatPrice(sp.diesel)}¢ {state === cheapestDiesel && <span className="text-xs">✓ Cheapest</span>}
                   </td>
                   <td className={`px-4 py-3 font-mono text-sm ${ulpDiff > 0 ? 'text-destructive' : ulpDiff < 0 ? 'text-success' : 'text-muted-foreground'}`}>
                     {ulpDiff > 0 ? '+' : ''}{ulpDiff}¢

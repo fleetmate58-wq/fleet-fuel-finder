@@ -1,14 +1,17 @@
-import { FALLBACK_PRICES } from '@/utils/fuelData';
+import { type FuelPrices } from '@/utils/fuelData';
 
-const PriceTicker = () => {
-  const nsw = FALLBACK_PRICES.NSW;
+interface PriceTickerProps {
+  prices: FuelPrices;
+}
+
+const PriceTicker = ({ prices }: PriceTickerProps) => {
   const items = [
-    `ULP 91: ${nsw.ulp91}¢/L`,
-    `Diesel: ${nsw.diesel}¢/L`,
-    `ULP 95: ${nsw.ulp95}¢/L`,
-    `ULP 98: ${nsw.ulp98}¢/L`,
-    `E10: ${nsw.e10}¢/L`,
-    `LPG: ${nsw.lpg}¢/L`,
+    `ULP 91: ${prices.ulp91}¢/L`,
+    `Diesel: ${prices.diesel}¢/L`,
+    `ULP 95: ${prices.ulp95}¢/L`,
+    `ULP 98: ${prices.ulp98}¢/L`,
+    `E10: ${prices.e10}¢/L`,
+    `LPG: ${prices.lpg}¢/L`,
   ];
 
   const tickerContent = [...items, ...items].map((item, i) => (

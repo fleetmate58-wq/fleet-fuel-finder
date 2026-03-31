@@ -1,9 +1,10 @@
 import { useState, useMemo } from 'react';
 import { ArrowUp, ArrowDown } from 'lucide-react';
-import { type StateCode, FALLBACK_PRICES, FUEL_LABELS, CHEAPEST_STATIONS, getYesterdayPrices, formatPrice } from '@/utils/fuelData';
+import { type StateCode, type FuelPrices, FUEL_LABELS, CHEAPEST_STATIONS, getYesterdayPrices, formatPrice } from '@/utils/fuelData';
 
 interface FuelPriceTableProps {
   state: StateCode;
+  prices: Record<StateCode, FuelPrices>;
 }
 
 type SortKey = 'fuelType' | 'today' | 'yesterday' | 'change';
@@ -11,12 +12,12 @@ type SortDir = 'asc' | 'desc';
 
 const FUEL_KEYS = ['ulp91', 'ulp95', 'ulp98', 'e10', 'diesel', 'premiumDiesel', 'lpg'] as const;
 
-const FuelPriceTable = ({ state }: FuelPriceTableProps) => {
+const FuelPriceTable = ({ state, prices }: FuelPriceTableProps) => {
   const [sortKey, setSortKey] = useState<SortKey>('fuelType');
   const [sortDir, setSortDir] = useState<SortDir>('asc');
 
   const yesterday = useMemo(() => getYesterdayPrices(state), [state]);
-  const today = FALLBACK_PRICES[state];
+  const today = prices[state];
 
   const rows = useMemo(() => {
     const data = FUEL_KEYS.map((key) => {
@@ -53,7 +54,6 @@ const FuelPriceTable = ({ state }: FuelPriceTableProps) => {
       <h2 className="text-2xl font-heading font-bold mb-2">{state} Fuel Prices Today</h2>
       <div className="w-12 h-0.5 bg-primary mb-6"></div>
 
-      {/* Desktop table */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full text-sm" aria-label={`${state} fuel prices`}>
           <thead>
@@ -89,7 +89,6 @@ const FuelPriceTable = ({ state }: FuelPriceTableProps) => {
         </table>
       </div>
 
-      {/* Mobile cards */}
       <div className="md:hidden space-y-3">
         {rows.map((row) => (
           <div key={row.key} className={`bg-card p-4 rounded-lg border border-border ${row.key === 'diesel' ? 'border-l-2 border-l-primary' : ''}`}>

@@ -1,13 +1,9 @@
-import { useState, useEffect } from 'react';
+interface HeroSectionProps {
+  isLive: boolean;
+  lastUpdated: Date;
+}
 
-const HeroSection = () => {
-  const [lastUpdated, setLastUpdated] = useState(new Date());
-
-  useEffect(() => {
-    const interval = setInterval(() => setLastUpdated(new Date()), 30000);
-    return () => clearInterval(interval);
-  }, []);
-
+const HeroSection = ({ isLive, lastUpdated }: HeroSectionProps) => {
   return (
     <section className="relative overflow-hidden py-16 md:py-24 grid-pattern">
       <div className="container mx-auto px-4 relative z-10">
@@ -17,7 +13,7 @@ const HeroSection = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-destructive"></span>
             </span>
-            <span className="text-primary">LIVE</span>
+            <span className="text-primary">{isLive ? 'LIVE' : 'CACHED'}</span>
           </span>
           <span className="text-muted-foreground text-sm font-body">
             Updated {lastUpdated.toLocaleTimeString('en-AU')}
