@@ -37,8 +37,9 @@ const Index = () => {
       </Helmet>
 
       <main className="min-h-screen bg-background">
+        <Navbar />
         {error && (
-          <div className="bg-primary/10 border-b border-primary/20 py-2 px-4 text-center text-sm font-body text-primary">
+          <div className="bg-primary/10 border-b border-primary/20 py-2 px-4 text-center text-sm text-primary">
             ⚠️ {error}
           </div>
         )}
