@@ -1,14 +1,18 @@
 import { useState, useMemo } from 'react';
 import { Calculator } from 'lucide-react';
-import { FALLBACK_PRICES, formatCurrency } from '@/utils/fuelData';
+import { type FuelPrices, type StateCode, FALLBACK_PRICES, formatCurrency } from '@/utils/fuelData';
 
-const FuelCalculator = () => {
+interface FuelCalculatorProps {
+  prices: Record<StateCode, FuelPrices>;
+}
+
+const FuelCalculator = ({ prices }: FuelCalculatorProps) => {
   const [vehicles, setVehicles] = useState(20);
   const [kmPerWeek, setKmPerWeek] = useState(800);
   const [consumption, setConsumption] = useState(11);
   const [fuelType, setFuelType] = useState<'ulp91' | 'diesel' | 'ulp95'>('diesel');
 
-  const pricePerLitre = FALLBACK_PRICES.NSW[fuelType] / 100; // convert cents to dollars
+  const pricePerLitre = (prices.NSW[fuelType] ?? FALLBACK_PRICES.NSW[fuelType]) / 100;
 
   const costs = useMemo(() => {
     const litresPerVehiclePerWeek = (kmPerWeek / 100) * consumption;
@@ -35,17 +39,14 @@ const FuelCalculator = () => {
               <input type="range" min={1} max={500} value={vehicles} onChange={(e) => setVehicles(Number(e.target.value))} className="w-full accent-primary" aria-label="Number of fleet vehicles" />
               <div className="flex justify-between text-xs text-muted-foreground mt-1"><span>1</span><span>500</span></div>
             </div>
-
             <div>
               <label className="block text-sm font-body text-muted-foreground mb-2">Avg km per vehicle per week</label>
               <input type="number" value={kmPerWeek} onChange={(e) => setKmPerWeek(Number(e.target.value))} className="w-full bg-accent border border-border rounded-sm px-4 py-3 font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-primary" aria-label="Average kilometres per vehicle per week" />
             </div>
-
             <div>
               <label className="block text-sm font-body text-muted-foreground mb-2">Fuel consumption (L/100km)</label>
               <input type="number" value={consumption} onChange={(e) => setConsumption(Number(e.target.value))} className="w-full bg-accent border border-border rounded-sm px-4 py-3 font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-primary" aria-label="Average fuel consumption litres per 100 kilometres" />
             </div>
-
             <div>
               <label className="block text-sm font-body text-muted-foreground mb-2">Fuel Type</label>
               <select value={fuelType} onChange={(e) => setFuelType(e.target.value as any)} className="w-full bg-accent border border-border rounded-sm px-4 py-3 font-body text-foreground focus:outline-none focus:ring-1 focus:ring-primary" aria-label="Select fuel type for fleet cost calculation">
@@ -73,14 +74,7 @@ const FuelCalculator = () => {
               <p className="text-sm text-primary font-body font-semibold">Potential savings with Fleet Mate (8%)</p>
               <p className="font-mono text-2xl font-bold text-primary">{formatCurrency(costs.savings)}<span className="text-sm font-body">/year</span></p>
             </div>
-
-            <a
-              href="https://fleetmate.au/contacts/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary text-primary-foreground font-heading font-semibold text-center px-6 py-4 rounded-sm hover:opacity-90 transition-all mt-2"
-              aria-label="Get a free Fleet Mate quote for fleet fuel management"
-            >
+            <a href="https://fleetmate.au/contacts/" target="_blank" rel="noopener noreferrer" className="bg-primary text-primary-foreground font-heading font-semibold text-center px-6 py-4 rounded-sm hover:opacity-90 transition-all mt-2" aria-label="Get a free Fleet Mate quote for fleet fuel management">
               Get a Free Fleet Mate Quote →
             </a>
           </div>
