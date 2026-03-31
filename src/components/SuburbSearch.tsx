@@ -76,34 +76,22 @@ const SuburbSearch = () => {
         return;
       }
 
-      // Call edge function
-      const { data, error: fnError } = await supabase.functions.invoke('fuel-prices', {
-        body: null,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      // Call edge function with bylocation params
+      const params = new URLSearchParams({
+        endpoint: 'bylocation',
+        latitude: coords.lat.toString(),
+        longitude: coords.lng.toString(),
+        radius: radius.toString(),
+        fueltype: fuelType,
+        sortby: 'price',
       });
 
-      // Use the bylocation endpoint via query params
-      const url = new URL(`${import.meta.env.VITE_SUPABASE_URL || ''}/functions/v1/fuel-prices`);
-      url.searchParams.set('endpoint', 'bylocation');
-      url.searchParams.set('latitude', coords.lat.toString());
-      url.searchParams.set('longitude', coords.lng.toString());
-      url.searchParams.set('radius', radius.toString());
-      url.searchParams.set('fueltype', fuelType);
-      url.searchParams.set('sortby', 'price');
+      const { data: responseData, error: fnError } = await supabase.functions.invoke(
+        `fuel-prices?${params.toString()}`,
+        { method: 'GET' }
+      );
 
-      const res = await fetch(url.toString(), {
-        headers: {
-          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY || '',
-        },
-      });
-
-      if (!res.ok) {
-        throw new Error(`API returned ${res.status}`);
-      }
-
-      const responseData = await res.json();
+      if (fnError) throw fnError;
 
       // Parse the response - NSW FuelCheck returns stations and prices
       const stations: StationResult[] = [];
