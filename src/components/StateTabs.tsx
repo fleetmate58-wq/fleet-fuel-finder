@@ -7,7 +7,7 @@ interface StateTabsProps {
 
 const StateTabs = ({ activeState, onStateChange }: StateTabsProps) => {
   return (
-    <div className="border-b border-border bg-background sticky top-0 z-20">
+    <div className="border-b border-border bg-background">
       <div className="container mx-auto px-4">
         <nav className="flex gap-1 overflow-x-auto" aria-label="Select Australian state">
           {STATES.map((state) => (
