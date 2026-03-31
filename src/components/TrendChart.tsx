@@ -13,19 +13,19 @@ const TrendChart = () => {
       <div className="bg-card border border-border rounded-lg p-4 md:p-6">
         <ResponsiveContainer width="100%" height={360}>
           <LineChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(213 33% 17%)" />
-            <XAxis dataKey="day" stroke="hsl(215 19% 65%)" tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }} />
-            <YAxis domain={['auto', 'auto']} stroke="hsl(215 19% 65%)" tick={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12 }} tickFormatter={(v) => `${v}¢`} />
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(214 20% 88%)" />
+            <XAxis dataKey="day" stroke="hsl(215 16% 47%)" tick={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }} />
+            <YAxis domain={['auto', 'auto']} stroke="hsl(215 16% 47%)" tick={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12 }} tickFormatter={(v) => `${v}¢`} />
             <Tooltip
               contentStyle={{
-                backgroundColor: 'hsl(222 43% 11%)',
-                border: '1px solid hsl(213 33% 17%)',
+                backgroundColor: 'hsl(0 0% 100%)',
+                border: '1px solid hsl(214 20% 88%)',
                 borderRadius: '4px',
                 fontFamily: "'DM Sans', sans-serif",
-                color: '#fff',
+                color: 'hsl(222 47% 11%)',
               }}
               formatter={(value: number) => [`${value}¢/L`]}
-              labelStyle={{ color: 'hsl(215 19% 65%)' }}
+              labelStyle={{ color: 'hsl(215 16% 47%)' }}
             />
             <Legend wrapperStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13 }} />
             <Line type="monotone" dataKey="ulp91" name="ULP 91" stroke="#f97316" strokeWidth={2} dot={{ r: 3 }} />

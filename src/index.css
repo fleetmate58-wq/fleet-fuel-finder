@@ -6,14 +6,14 @@
 
 @layer base {
   :root {
-    --background: 222 56% 7%;
-    --foreground: 0 0% 100%;
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
 
-    --card: 222 43% 11%;
-    --card-foreground: 0 0% 100%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
-    --popover: 222 43% 11%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
     --primary: 25 95% 53%;
     --primary-foreground: 0 0% 100%;
@@ -21,30 +21,30 @@
     --secondary: 217 91% 60%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 215 28% 17%;
-    --muted-foreground: 215 19% 65%;
+    --muted: 215 20% 93%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 222 35% 14%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 210 18% 95%;
+    --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --success: 142 71% 45%;
 
-    --border: 213 33% 17%;
-    --input: 213 33% 17%;
+    --border: 214 20% 88%;
+    --input: 214 20% 88%;
     --ring: 25 95% 53%;
 
     --radius: 0.25rem;
 
-    --sidebar-background: 222 56% 7%;
-    --sidebar-foreground: 0 0% 100%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
     --sidebar-primary: 25 95% 53%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 35% 14%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 213 33% 17%;
+    --sidebar-accent: 210 18% 95%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 20% 88%;
     --sidebar-ring: 25 95% 53%;
   }
 }
@@ -82,17 +82,17 @@
 /* Grid pattern overlay */
 .grid-pattern {
   background-image: 
-    linear-gradient(rgba(249, 115, 22, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(249, 115, 22, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(249, 115, 22, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249, 115, 22, 0.05) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 /* Orange glow */
 .orange-glow {
-  box-shadow: 0 0 20px rgba(249, 115, 22, 0.15), 0 0 40px rgba(249, 115, 22, 0.05);
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.1), 0 0 40px rgba(249, 115, 22, 0.05);
 }
 
 /* Leaflet overrides */
 .leaflet-container {
-  background: hsl(222 43% 11%) !important;
+  background: hsl(210 20% 98%) !important;
 }
