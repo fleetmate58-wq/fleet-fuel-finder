@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import HeroSection from '@/components/HeroSection';
 import PriceTicker from '@/components/PriceTicker';
@@ -13,9 +13,11 @@ import FuelTips from '@/components/FuelTips';
 import FAQSection from '@/components/FAQSection';
 import CTASection from '@/components/CTASection';
 import { type StateCode } from '@/utils/fuelData';
+import { useFuelPrices } from '@/hooks/useFuelPrices';
 
 const Index = () => {
   const [activeState, setActiveState] = useState<StateCode>('NSW');
+  const { prices, loading, error, isLive, lastUpdated } = useFuelPrices();
 
   return (
     <>
@@ -29,26 +31,27 @@ const Index = () => {
           "name": "Live Fuel Prices Australia",
           "description": "Real-time petrol and diesel prices across Australian states for fleet managers.",
           "url": "https://fleetmate.au/live-fuel-data/",
-          "publisher": {
-            "@type": "Organization",
-            "name": "Fleet Mate",
-            "url": "https://fleetmate.au"
-          }
+          "publisher": { "@type": "Organization", "name": "Fleet Mate", "url": "https://fleetmate.au" }
         })}</script>
       </Helmet>
 
       <main className="min-h-screen bg-background">
-        <HeroSection />
-        <PriceTicker />
+        {error && (
+          <div className="bg-primary/10 border-b border-primary/20 py-2 px-4 text-center text-sm font-body text-primary">
+            ⚠️ {error}
+          </div>
+        )}
+        <HeroSection isLive={isLive} lastUpdated={lastUpdated} />
+        <PriceTicker prices={prices.NSW} />
         <StateTabs activeState={activeState} onStateChange={setActiveState} />
-        <FuelPriceTable state={activeState} />
+        <FuelPriceTable state={activeState} prices={prices} />
         <SuburbSearch />
         <FuelMap />
         <TrendChart />
-        <FuelCalculator />
-        <StateComparison />
+        <FuelCalculator prices={prices} />
+        <StateComparison prices={prices} />
         <FuelTips />
-        <FAQSection />
+        <FAQSection prices={prices.NSW} />
         <CTASection />
 
         <footer className="border-t border-border py-6">
