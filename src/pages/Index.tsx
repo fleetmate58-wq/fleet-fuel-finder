@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import PriceTicker from '@/components/PriceTicker';
 import StateTabs from '@/components/StateTabs';
