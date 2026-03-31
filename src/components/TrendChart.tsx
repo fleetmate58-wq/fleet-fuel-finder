@@ -25,7 +25,7 @@ const TrendChart = () => {
                 color: 'hsl(222 47% 11%)',
               }}
               formatter={(value: number) => [`${value}¢/L`]}
-              labelStyle={{ color: 'hsl(215 19% 65%)' }}
+              labelStyle={{ color: 'hsl(215 16% 47%)' }}
             />
             <Legend wrapperStyle={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13 }} />
             <Line type="monotone" dataKey="ulp91" name="ULP 91" stroke="#f97316" strokeWidth={2} dot={{ r: 3 }} />
