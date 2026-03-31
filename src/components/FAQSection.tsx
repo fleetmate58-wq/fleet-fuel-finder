@@ -43,7 +43,7 @@ const FAQSection = ({ prices }: FAQSectionProps) => {
 
       <div className="space-y-2 max-w-3xl">
         {faqs.map((faq, i) => (
-          <div key={i} className="bg-card border border-border rounded-sm overflow-hidden">
+          <div key={i} className="bg-card border border-border rounded-lg overflow-hidden">
             <button
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
               className="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-sm hover:bg-accent transition-colors"
