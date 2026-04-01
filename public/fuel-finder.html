@@ -395,57 +395,13 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;background:var(--seco
   </div>
 </section>
 
-<!-- ═══ FLEET CALCULATOR ══════════════════════════════════════════ -->
+<!-- ═══ FLEET CALCULATOR CTA ═══════════════════════════════════════ -->
 <section class="section-sm" id="fleet-calculator">
   <div class="container">
-    <h2 class="text-xl font-bold mb-1">Fleet Fuel Cost Calculator</h2>
-    <p class="text-sm text-muted mb-2">Estimate your monthly fuel bill based on live prices</p>
-    <div class="accent-line"></div>
-    <div class="card card-p">
-      <div class="calc-grid">
-        <div>
-          <label class="calc-label" for="calc-vehicles">Number of Vehicles</label>
-          <input id="calc-vehicles" type="number" class="input" value="10" min="1" max="10000" />
-        </div>
-        <div>
-          <label class="calc-label" for="calc-km">Weekly KM per Vehicle</label>
-          <input id="calc-km" type="number" class="input" value="500" min="1" max="10000" />
-        </div>
-        <div>
-          <label class="calc-label" for="calc-consumption">Consumption (L/100km)</label>
-          <input id="calc-consumption" type="number" class="input" value="11" min="1" max="50" step="0.1" />
-        </div>
-        <div>
-          <label class="calc-label" for="calc-fuel">Fuel Type</label>
-          <select id="calc-fuel" class="select">
-            <option value="diesel">Diesel</option>
-            <option value="ulp91">Unleaded 91</option>
-            <option value="ulp95">Unleaded 95</option>
-            <option value="ulp98">Unleaded 98</option>
-            <option value="e10">E10</option>
-            <option value="lpg">LPG</option>
-          </select>
-        </div>
-        <div>
-          <label class="calc-label" for="calc-state">State</label>
-          <select id="calc-state" class="select">
-            <option value="NSW">NSW</option>
-            <option value="VIC">VIC</option>
-            <option value="QLD">QLD</option>
-            <option value="WA">WA</option>
-            <option value="SA">SA</option>
-            <option value="TAS">TAS</option>
-            <option value="NT">NT</option>
-            <option value="ACT">ACT</option>
-          </select>
-        </div>
-      </div>
-      <div class="calc-result" id="calc-result">
-        <div class="calc-result-row"><span>Weekly fuel cost</span><span class="calc-amount mono" id="calc-weekly">—</span></div>
-        <div class="calc-result-row"><span>Monthly fuel cost</span><span class="calc-amount mono" id="calc-monthly">—</span></div>
-        <div class="calc-result-row"><span>Annual fuel cost</span><span class="calc-amount mono" id="calc-annual">—</span></div>
-        <div class="calc-result-row" style="color:var(--primary)"><span>Current price used</span><span class="calc-amount mono" id="calc-price-used">—</span></div>
-      </div>
+    <div class="card card-p" style="text-align:center;padding:2.5rem 1.5rem">
+      <h2 style="font-size:1.35rem;font-weight:700;margin-bottom:.5rem">🧮 Fleet Fuel Cost Calculator</h2>
+      <p class="text-sm text-muted" style="max-width:36rem;margin:0 auto .75rem">Estimate your fleet's weekly, monthly and annual fuel spend using live Australian pump prices. Compare states, fuel types and scenarios.</p>
+      <a href="/fleet-fuel-cost-calculator/" class="btn btn-primary" style="text-decoration:none">Open Calculator →</a>
     </div>
   </div>
 </section>
@@ -834,26 +790,6 @@ function renderComparison(){
   }).join('');
 }
 
-// ── Render: Calculator ────────────────────────────────────────────────────────
-function calcFuel(){
-  const vehicles=+document.getElementById('calc-vehicles').value||0;
-  const km=+document.getElementById('calc-km').value||0;
-  const cons=+document.getElementById('calc-consumption').value||0;
-  const fuelKey=document.getElementById('calc-fuel').value;
-  const stateCode=document.getElementById('calc-state').value;
-  const pricePerL=(app.prices[stateCode]?.[fuelKey]||0)/100;
-  const weeklyL=vehicles*km*(cons/100);
-  const weekly=weeklyL*pricePerL;
-  const monthly=weekly*52/12;
-  const annual=weekly*52;
-  document.getElementById('calc-weekly').textContent=fmtAUD(weekly)+'/wk';
-  document.getElementById('calc-monthly').textContent=fmtAUD(monthly)+'/mo';
-  document.getElementById('calc-annual').textContent=fmtAUD(annual)+'/yr';
-  document.getElementById('calc-price-used').textContent=`${fmt(app.prices[stateCode]?.[fuelKey]||0)}¢/L`;
-}
-['calc-vehicles','calc-km','calc-consumption','calc-fuel','calc-state'].forEach(id=>{
-  document.getElementById(id).addEventListener('input',calcFuel);
-});
 
 // ── Render: Trend Chart ───────────────────────────────────────────────────────
 function renderTrendChart(){
@@ -979,7 +915,7 @@ function renderAll(){
   renderTicker();
   renderPriceTable();
   renderComparison();
-  calcFuel();
+  // calcFuel removed — now on separate page
   renderCrudeOil();
 }
 
