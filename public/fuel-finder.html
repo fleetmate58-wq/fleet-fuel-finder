@@ -790,26 +790,6 @@ function renderComparison(){
   }).join('');
 }
 
-// ── Render: Calculator ────────────────────────────────────────────────────────
-function calcFuel(){
-  const vehicles=+document.getElementById('calc-vehicles').value||0;
-  const km=+document.getElementById('calc-km').value||0;
-  const cons=+document.getElementById('calc-consumption').value||0;
-  const fuelKey=document.getElementById('calc-fuel').value;
-  const stateCode=document.getElementById('calc-state').value;
-  const pricePerL=(app.prices[stateCode]?.[fuelKey]||0)/100;
-  const weeklyL=vehicles*km*(cons/100);
-  const weekly=weeklyL*pricePerL;
-  const monthly=weekly*52/12;
-  const annual=weekly*52;
-  document.getElementById('calc-weekly').textContent=fmtAUD(weekly)+'/wk';
-  document.getElementById('calc-monthly').textContent=fmtAUD(monthly)+'/mo';
-  document.getElementById('calc-annual').textContent=fmtAUD(annual)+'/yr';
-  document.getElementById('calc-price-used').textContent=`${fmt(app.prices[stateCode]?.[fuelKey]||0)}¢/L`;
-}
-['calc-vehicles','calc-km','calc-consumption','calc-fuel','calc-state'].forEach(id=>{
-  document.getElementById(id).addEventListener('input',calcFuel);
-});
 
 // ── Render: Trend Chart ───────────────────────────────────────────────────────
 function renderTrendChart(){
