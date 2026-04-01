@@ -917,7 +917,7 @@ async function doSuburbSearch(){
     const ft=document.getElementById('fuel-type-select').value;
     const radius=document.getElementById('radius-select').value;
     const params=new URLSearchParams({endpoint:'bylocation',latitude:coords.lat,longitude:coords.lng,radius,fueltype:ft});
-    const r=await fetch(`/api/fuel-prices?${params}`);
+    const r=await apiFetch(`${SUPABASE_URL}/fuel-prices?${params}`);
     if(!r.ok)throw new Error(r.status);
     const d=await r.json();
     const stations=d.stations||[];
