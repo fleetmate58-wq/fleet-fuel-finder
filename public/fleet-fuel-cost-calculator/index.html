@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fleet Fuel Cost Calculator Australia 2026 | Estimate Weekly &amp; Monthly Fuel Spend | Fleet Mate</title>
+<meta name="description" content="Free fleet fuel cost calculator for Australian businesses. Estimate weekly, monthly and annual fuel spend using live petrol &amp; diesel prices across NSW, VIC, QLD, WA, SA, TAS, NT and ACT. Compare fuel types and states instantly." />
+<meta name="keywords" content="fleet fuel cost calculator, fleet fuel budget Australia, petrol cost calculator Australia, diesel cost calculator fleet, fuel expense estimator, fleet management fuel costs, how much does fuel cost per week fleet, fuel cost per km Australia 2026, fleet fuel savings calculator, business fuel cost calculator" />
+<link rel="canonical" href="https://fleetmate.au/fleet-fuel-cost-calculator/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Fleet Fuel Cost Calculator Australia 2026 | Free Tool | Fleet Mate" />
+<meta property="og:description" content="Estimate your fleet's weekly, monthly and annual fuel costs using live Australian pump prices. Compare states and fuel types instantly." />
+<meta property="og:url" content="https://fleetmate.au/fleet-fuel-cost-calculator/" />
+<meta property="og:image" content="https://fleetmate.au/wp-content/uploads/fleet-mate-fuel-calculator.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index, follow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --primary:         hsl(16,82%,54%);
+  --primary-fg:      #ffffff;
+  --bg:              #ffffff;
+  --fg:              hsl(230,25%,15%);
+  --card:            #ffffff;
+  --secondary:       hsl(220,14%,96%);
+  --muted:           hsl(220,14%,96%);
+  --muted-fg:        hsl(220,9%,46%);
+  --border:          hsl(220,13%,91%);
+  --radius:          0.5rem;
+  --green:           #16a34a;
+  --amber:           #d97706;
+  --red:             #dc2626;
+  --green-bg:        #f0fdf4;
+  --green-border:    #bbf7d0;
+  --amber-bg:        #fffbeb;
+  --amber-border:    #fde68a;
+  --red-bg:          #fef2f2;
+  --red-border:      #fecaca;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;font-size:16px}
+h1,h2,h3,h4,h5,h6{font-family:'DM Sans',sans-serif;font-weight:700;line-height:1.2}
+.mono{font-family:'JetBrains Mono',monospace}
+.container{max-width:900px;margin:0 auto;padding:0 1rem}
+.section{padding:3rem 0}
+.section-sm{padding:2rem 0}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius)}
+.card-p{padding:1.5rem}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;border-radius:9999px;font-weight:600;font-size:.875rem;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;border:none;transition:opacity .15s}
+.btn-primary{background:var(--primary);color:var(--primary-fg)}
+.btn-primary:hover{opacity:.88}
+.btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+.btn-outline:hover{background:var(--primary);color:var(--primary-fg)}
+
+.input,.select{width:100%;background:var(--secondary);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem 1rem;font-family:inherit;font-size:.9rem;color:var(--fg);outline:none;transition:border-color .15s}
+.input:focus,.select:focus{border-color:var(--primary)}
+
+.badge{display:inline-flex;align-items:center;gap:.375rem;font-size:.7rem;font-weight:600;padding:.25rem .625rem;border-radius:9999px;border:1px solid}
+.badge-green{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
+.badge-amber{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border)}
+
+.accent-line{width:3rem;height:.125rem;background:var(--primary);margin:.25rem 0 1.5rem}
+
+.text-muted{color:var(--muted-fg)}
+.text-primary{color:var(--primary)}
+.text-sm{font-size:.875rem}
+.text-xs{font-size:.75rem}
+.flex{display:flex}.items-center{align-items:center}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}
+.mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}.mb-6{margin-bottom:1.5rem}
+.mt-2{margin-top:.5rem}
+
+/* Hero */
+.hero{padding:3rem 0 2rem;background:white;background-image:linear-gradient(rgba(0,0,0,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.02) 1px,transparent 1px);background-size:40px 40px}
+.hero h1{font-size:clamp(1.5rem,4vw,2.25rem);margin-bottom:.75rem}
+.hero-orange{color:var(--primary)}
+.hero p{color:var(--muted-fg);max-width:42rem;line-height:1.7;margin-bottom:1.25rem}
+
+/* Breadcrumb */
+.breadcrumb{display:flex;align-items:center;gap:.375rem;font-size:.8rem;color:var(--muted-fg);margin-bottom:1rem;flex-wrap:wrap}
+.breadcrumb a{color:var(--primary);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+
+/* Calculator */
+.calc-grid{display:grid;grid-template-columns:1fr;gap:1.25rem}
+@media(min-width:640px){.calc-grid{grid-template-columns:1fr 1fr}}
+.calc-label{font-size:.8rem;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:.375rem}
+.calc-result{background:var(--secondary);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-top:1.25rem}
+.calc-result-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.9rem}
+.calc-result-row:last-child{border-bottom:none;font-weight:700;font-size:1rem;padding-top:.75rem}
+.calc-amount{font-family:'JetBrains Mono',monospace;font-weight:600}
+.calc-highlight{background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius);padding:1.25rem;margin-top:1rem;text-align:center}
+.calc-highlight-amount{font-family:'JetBrains Mono',monospace;font-size:2.5rem;font-weight:700;color:var(--fg);line-height:1}
+.calc-highlight-label{font-size:.8rem;color:var(--muted-fg);margin-top:.25rem}
+
+/* Comparison table */
+.comp-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.comp-table thead th{padding:.75rem .875rem;text-align:left;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted-fg);border-bottom:2px solid var(--border);white-space:nowrap}
+.comp-table tbody td{padding:.75rem .875rem;border-bottom:1px solid var(--border)}
+.comp-table tbody tr:last-child td{border-bottom:none}
+.comp-table tbody tr:hover{background:var(--muted)}
+.comp-price{font-family:'JetBrains Mono',monospace;font-weight:600}
+.cheapest-row{background:rgba(22,163,74,.05)!important;border-left:3px solid var(--green)}
+
+/* Scenario cards */
+.scenario-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+@media(min-width:640px){.scenario-grid{grid-template-columns:1fr 1fr 1fr}}
+.scenario-card{background:var(--secondary);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;text-align:center}
+.scenario-card h4{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-fg);margin-bottom:.5rem}
+.scenario-amount{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--fg)}
+.scenario-sub{font-size:.75rem;color:var(--muted-fg);margin-top:.25rem}
+.scenario-saving{font-size:.85rem;font-weight:600;color:var(--green);margin-top:.375rem}
+
+/* Tips */
+.tip-list{display:flex;flex-direction:column;gap:.75rem}
+.tip-item{display:flex;gap:.75rem;padding:1rem;background:var(--secondary);border:1px solid var(--border);border-radius:var(--radius)}
+.tip-icon{font-size:1.25rem;flex-shrink:0;margin-top:.125rem}
+.tip-item h4{font-size:.9rem;font-weight:600;margin-bottom:.125rem}
+.tip-item p{font-size:.8rem;color:var(--muted-fg);line-height:1.5}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:last-child{border-bottom:none}
+.faq-q{width:100%;text-align:left;background:none;border:none;padding:1rem 0;font-family:inherit;font-size:.9rem;font-weight:600;color:var(--fg);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.faq-q:hover{color:var(--primary)}
+.faq-icon{font-size:1.25rem;color:var(--muted-fg);transition:transform .2s;flex-shrink:0}
+.faq-a{display:none;padding:0 0 1rem;font-size:.85rem;color:var(--muted-fg);line-height:1.7}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--primary)}
+.faq-item.open .faq-a{display:block}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:2rem 0;background:var(--secondary)}
+
+/* CTA banner */
+.cta-banner{background:var(--fg);color:white;border-radius:var(--radius);padding:2rem;text-align:center;margin:2rem 0}
+.cta-banner h3{font-size:1.25rem;margin-bottom:.5rem}
+.cta-banner p{color:rgba(255,255,255,.7);margin-bottom:1rem;font-size:.9rem}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="https://fleetmate.au/">Fleet Mate</a>
+      <span>›</span>
+      <a href="/fuel-finder.html">Live Fuel Prices</a>
+      <span>›</span>
+      <span>Fleet Fuel Cost Calculator</span>
+    </nav>
+    <h1>Fleet Fuel Cost Calculator Australia <span class="hero-orange">2026</span></h1>
+    <p>Estimate your fleet's weekly, monthly and annual fuel spend using <strong>live Australian petrol and diesel prices</strong>. Compare costs across all states, fuel types, and fleet sizes — updated with real-time NSW FuelCheck and WA FuelWatch data.</p>
+    <div class="flex items-center gap-2" style="flex-wrap:wrap">
+      <span class="badge badge-green"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span> Uses live prices</span>
+      <span class="badge badge-amber">Free · No signup required</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CALCULATOR ════════════════════════════════════════════════ -->
+<section class="section-sm" id="calculator">
+  <div class="container">
+    <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:.25rem">Calculate Your Fleet's Fuel Costs</h2>
+    <div class="accent-line"></div>
+    <div class="card card-p">
+      <div class="calc-grid">
+        <div>
+          <label class="calc-label" for="calc-vehicles">Number of Vehicles</label>
+          <input id="calc-vehicles" type="number" class="input" value="10" min="1" max="10000" />
+        </div>
+        <div>
+          <label class="calc-label" for="calc-km">Weekly KM per Vehicle</label>
+          <input id="calc-km" type="number" class="input" value="500" min="1" max="10000" />
+        </div>
+        <div>
+          <label class="calc-label" for="calc-consumption">Fuel Consumption (L/100km)</label>
+          <input id="calc-consumption" type="number" class="input" value="11" min="1" max="50" step="0.1" />
+        </div>
+        <div>
+          <label class="calc-label" for="calc-fuel">Fuel Type</label>
+          <select id="calc-fuel" class="select">
+            <option value="diesel">Diesel</option>
+            <option value="ulp91">Unleaded 91</option>
+            <option value="ulp95">Unleaded 95</option>
+            <option value="ulp98">Unleaded 98</option>
+            <option value="e10">E10</option>
+            <option value="lpg">LPG</option>
+          </select>
+        </div>
+        <div>
+          <label class="calc-label" for="calc-state">State / Territory</label>
+          <select id="calc-state" class="select">
+            <option value="NSW">NSW — New South Wales</option>
+            <option value="VIC">VIC — Victoria</option>
+            <option value="QLD">QLD — Queensland</option>
+            <option value="WA">WA — Western Australia</option>
+            <option value="SA">SA — South Australia</option>
+            <option value="TAS">TAS — Tasmania</option>
+            <option value="NT">NT — Northern Territory</option>
+            <option value="ACT">ACT — Australian Capital Territory</option>
+          </select>
+        </div>
+        <div>
+          <label class="calc-label" for="calc-margin">Savings Margin (%)</label>
+          <input id="calc-margin" type="number" class="input" value="5" min="0" max="50" step="1" />
+          <span class="text-xs text-muted mt-1" style="display:block">% cheaper fuel you could find</span>
+        </div>
+      </div>
+
+      <!-- Highlight result -->
+      <div class="calc-highlight" id="calc-highlight">
+        <div class="calc-highlight-amount" id="calc-monthly-big">—</div>
+        <div class="calc-highlight-label">Estimated Monthly Fuel Cost</div>
+      </div>
+
+      <!-- Detail breakdown -->
+      <div class="calc-result" id="calc-result">
+        <div class="calc-result-row"><span>Litres per week</span><span class="calc-amount mono" id="calc-litres">—</span></div>
+        <div class="calc-result-row"><span>Weekly fuel cost</span><span class="calc-amount mono" id="calc-weekly">—</span></div>
+        <div class="calc-result-row"><span>Monthly fuel cost (52÷12)</span><span class="calc-amount mono" id="calc-monthly">—</span></div>
+        <div class="calc-result-row"><span>Annual fuel cost</span><span class="calc-amount mono" id="calc-annual">—</span></div>
+        <div class="calc-result-row"><span>Cost per kilometre</span><span class="calc-amount mono" id="calc-cpk">—</span></div>
+        <div class="calc-result-row" style="color:var(--primary)"><span>Live price used</span><span class="calc-amount mono" id="calc-price-used">—</span></div>
+        <div class="calc-result-row" style="color:var(--green)"><span>Potential annual saving (<span id="margin-label">5</span>%)</span><span class="calc-amount mono" id="calc-saving">—</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCENARIOS ════════════════════════════════════════════════ -->
+<section class="section-sm">
+  <div class="container">
+    <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:.25rem">Quick Fleet Scenarios</h2>
+    <p class="text-sm text-muted mb-2">Common Australian fleet sizes — costs auto-calculated from live prices</p>
+    <div class="accent-line"></div>
+    <div class="scenario-grid" id="scenarios"></div>
+  </div>
+</section>
+
+<!-- ═══ STATE COMPARISON ════════════════════════════════════════ -->
+<section class="section-sm">
+  <div class="container">
+    <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:.25rem">Fuel Cost by State — Side-by-Side</h2>
+    <p class="text-sm text-muted mb-2">Same fleet, different state — see how location impacts your fuel budget</p>
+    <div class="accent-line"></div>
+    <div class="card" style="overflow-x:auto">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>State</th>
+            <th>Price (¢/L)</th>
+            <th>Weekly</th>
+            <th>Monthly</th>
+            <th>Annual</th>
+            <th>vs Cheapest</th>
+          </tr>
+        </thead>
+        <tbody id="state-comp-body"></tbody>
+      </table>
+    </div>
+    <p class="text-xs text-muted mt-2">Based on your current calculator inputs. NSW &amp; WA use live data; other states are ACCC estimates.</p>
+  </div>
+</section>
+
+<!-- ═══ FUEL SAVING TIPS ═════════════════════════════════════════ -->
+<section class="section-sm">
+  <div class="container">
+    <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:.25rem">How to Reduce Fleet Fuel Costs in Australia</h2>
+    <p class="text-sm text-muted mb-2">Proven strategies used by Australian fleet managers in 2026</p>
+    <div class="accent-line"></div>
+    <div class="tip-list">
+      <div class="tip-item"><div class="tip-icon">📍</div><div><h4>Buy fuel on the cheapest day</h4><p>In most Australian cities, Tuesday and Wednesday are the cheapest days. Prices typically spike Thursday morning. Timing large fill-ups can save 5–10¢/L across your fleet.</p></div></div>
+      <div class="tip-item"><div class="tip-icon">🛞</div><div><h4>Maintain correct tyre pressure</h4><p>Under-inflated tyres increase rolling resistance, adding up to 3% to fuel consumption. A fleet of 20 vehicles could save $2,000–$4,000/year with weekly pressure checks.</p></div></div>
+      <div class="tip-item"><div class="tip-icon">📊</div><div><h4>Use telematics to monitor driver behaviour</h4><p>Harsh acceleration, excessive idling and speeding can inflate fuel costs by 15–25%. Fleet telematics data identifies the worst offenders and tracks improvement over time.</p></div></div>
+      <div class="tip-item"><div class="tip-icon">🗺️</div><div><h4>Optimise routes to reduce empty kilometres</h4><p>Route planning software can cut total fleet kilometres by 10–20%, directly reducing fuel spend. Prioritise removing unnecessary return-to-base trips.</p></div></div>
+      <div class="tip-item"><div class="tip-icon">⛽</div><div><h4>Negotiate bulk fuel pricing or use fleet cards</h4><p>Fleet fuel cards like FleetCard or Motorpass offer 3–6¢/L discounts at partner stations. For larger fleets, negotiate direct supply agreements with fuel distributors.</p></div></div>
+      <div class="tip-item"><div class="tip-icon">🔋</div><div><h4>Consider hybrid or EV for suitable routes</h4><p>For urban delivery and passenger vehicles doing under 200km/day, PHEVs and EVs can cut fuel costs by 50–80%. The 2026 FBT exemption for EVs under $89,332 makes the business case stronger.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ══════════════════════════════════════════════════════ -->
+<section class="section-sm" id="faq">
+  <div class="container">
+    <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:.25rem">Fleet Fuel Cost FAQ</h2>
+    <div class="accent-line"></div>
+    <div class="card card-p" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- ═══ CTA ══════════════════════════════════════════════════════ -->
+<div class="container">
+  <div class="cta-banner">
+    <h3>Need help managing your fleet's fuel costs?</h3>
+    <p>Fleet Mate's GPS tracking and fleet management platform helps Australian businesses cut fuel spend by up to 15% with route optimisation, driver behaviour monitoring and real-time fuel price alerts.</p>
+    <a href="https://fleetmate.au/contacts/" class="btn btn-primary" style="text-decoration:none" target="_blank" rel="noopener">Get a Free Demo →</a>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div style="display:flex;flex-wrap:wrap;gap:2rem;margin-bottom:1.5rem">
+      <div>
+        <h4 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem">Related Tools</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:.3rem">
+          <li><a href="/fuel-finder.html" style="font-size:.78rem;color:var(--muted-fg);text-decoration:none">Live Fuel Prices Australia ↗</a></li>
+          <li><a href="https://fleetmate.au/services/fleet-management/" target="_blank" rel="noopener" style="font-size:.78rem;color:var(--muted-fg);text-decoration:none">Fleet Management ↗</a></li>
+          <li><a href="https://fleetmate.au/services/gps-fleet-tracking-telematics/" target="_blank" rel="noopener" style="font-size:.78rem;color:var(--muted-fg);text-decoration:none">GPS Fleet Tracking ↗</a></li>
+        </ul>
+      </div>
+      <div style="flex:1;min-width:200px">
+        <h4 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem">Data Sources</h4>
+        <p style="font-size:.78rem;color:var(--muted-fg);line-height:1.6">NSW prices from NSW FuelCheck API. WA prices from WA FuelWatch RSS. Other states are ACCC-based estimates. All prices in Australian cents per litre (¢/L) including GST. Refreshed every 30 minutes.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--border);padding-top:1rem">
+      <p style="font-size:.78rem;color:var(--muted-fg)">© <span id="footer-year"></span> <a href="https://fleetmate.au/" target="_blank" rel="noopener" style="color:var(--primary);text-decoration:none;font-weight:600">Fleet Mate Australia</a> · GPS Fleet Tracking &amp; Fleet Management</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+
+// ── Fallback Prices ────────────────────────────────────────────────────────────
+const FALLBACK = {
+  NSW: { ulp91:258.7, ulp95:274.0, ulp98:282.2, e10:254.4, diesel:324.9, premiumDiesel:325.0, lpg:119.5 },
+  VIC: { ulp91:255.2, ulp95:270.3, ulp98:278.6, e10:251.1, diesel:321.4, premiumDiesel:322.1, lpg:116.8 },
+  QLD: { ulp91:263.8, ulp95:279.2, ulp98:287.5, e10:259.5, diesel:329.9, premiumDiesel:330.6, lpg:124.6 },
+  WA:  { ulp91:270.9, ulp95:286.4, ulp98:294.7, e10:266.6, diesel:337.0, premiumDiesel:337.7, lpg:131.6 },
+  SA:  { ulp91:264.9, ulp95:280.2, ulp98:288.5, e10:260.6, diesel:331.0, premiumDiesel:331.7, lpg:125.6 },
+  TAS: { ulp91:271.1, ulp95:286.6, ulp98:295.0, e10:267.0, diesel:337.1, premiumDiesel:337.9, lpg:132.0 },
+  NT:  { ulp91:296.8, ulp95:312.3, ulp98:320.7, e10:292.5, diesel:362.9, premiumDiesel:363.6, lpg:157.5 },
+  ACT: { ulp91:256.5, ulp95:271.8, ulp98:280.1, e10:252.2, diesel:322.9, premiumDiesel:323.7, lpg:118.1 },
+};
+const STATES = ['NSW','VIC','QLD','WA','SA','TAS','NT','ACT'];
+const STATE_NAMES = { NSW:'New South Wales', VIC:'Victoria', QLD:'Queensland', WA:'Western Australia', SA:'South Australia', TAS:'Tasmania', NT:'Northern Territory', ACT:'Australian Capital Territory' };
+const FUEL_LABELS = { ulp91:'Unleaded 91', ulp95:'Unleaded 95', ulp98:'Unleaded 98', e10:'E10', diesel:'Diesel', premiumDiesel:'Premium Diesel', lpg:'LPG' };
+
+const prices = JSON.parse(JSON.stringify(FALLBACK));
+
+// ── Utilities ──────────────────────────────────────────────────────────────────
+function fmt(v){ return typeof v==='number' ? v.toFixed(1) : '—'; }
+function fmtAUD(d){ return new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',maximumFractionDigits:0}).format(d); }
+function fmtAUD2(d){ return new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',minimumFractionDigits:2,maximumFractionDigits:2}).format(d); }
+
+// ── Fetch Live Prices ──────────────────────────────────────────────────────────
+const SUPABASE_URL='https://sahuloieqmiyapdcvuzi.supabase.co/functions/v1';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhaHVsb2llcW1peWFwZGN2dXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDY0OTAsImV4cCI6MjA5MDUyMjQ5MH0.7BXg2Pm2m1l2w8m6BMBoJkSIakMLi7fxDjjgUKR6jJ4';
+const apiFetch=(url)=>fetch(url,{headers:{'Authorization':'Bearer '+SUPABASE_KEY,'apikey':SUPABASE_KEY}});
+
+async function fetchNSW(){
+  try{
+    const r=await apiFetch(SUPABASE_URL+'/fuel-prices?endpoint=prices');
+    if(!r.ok)return;
+    const d=await r.json();
+    if(d?.prices?.length){
+      const tot={};
+      d.prices.forEach(p=>{
+        const map={E10:'e10',U91:'ulp91',P95:'ulp95',P98:'ulp98',DL:'diesel',PDL:'premiumDiesel',LPG:'lpg'};
+        const k=map[p.fueltype];if(k){if(!tot[k])tot[k]={s:0,c:0};tot[k].s+=p.price;tot[k].c++;}
+      });
+      Object.entries(tot).forEach(([k,{s,c}])=>{if(c>0)prices.NSW[k]=+(s/c).toFixed(1);});
+      calcFuel();
+    }
+  }catch(e){console.warn('NSW fetch failed:',e);}
+}
+
+async function fetchWA(){
+  try{
+    const r=await apiFetch(SUPABASE_URL+'/wa-fuel');
+    if(!r.ok)return;
+    const d=await r.json();
+    if(d?.prices) Object.assign(prices.WA, d.prices);
+    calcFuel();
+  }catch(e){console.warn('WA fetch failed:',e);}
+}
+
+// ── Calculator ─────────────────────────────────────────────────────────────────
+function calcFuel(){
+  const vehicles=Math.max(1,+document.getElementById('calc-vehicles').value||0);
+  const km=Math.max(1,+document.getElementById('calc-km').value||0);
+  const cons=Math.max(1,+document.getElementById('calc-consumption').value||0);
+  const fuelKey=document.getElementById('calc-fuel').value;
+  const stateCode=document.getElementById('calc-state').value;
+  const margin=Math.max(0,+document.getElementById('calc-margin').value||0);
+  const priceCentsPerL=prices[stateCode]?.[fuelKey]||0;
+  const pricePerL=priceCentsPerL/100;
+  const weeklyL=vehicles*km*(cons/100);
+  const weekly=weeklyL*pricePerL;
+  const monthly=weekly*52/12;
+  const annual=weekly*52;
+  const totalKmWeek=vehicles*km;
+  const cpk=totalKmWeek>0?(weekly/totalKmWeek):0;
+  const annualSaving=annual*(margin/100);
+
+  document.getElementById('calc-litres').textContent=weeklyL.toFixed(0)+' L';
+  document.getElementById('calc-weekly').textContent=fmtAUD(weekly)+'/wk';
+  document.getElementById('calc-monthly').textContent=fmtAUD(monthly)+'/mo';
+  document.getElementById('calc-monthly-big').textContent=fmtAUD(monthly);
+  document.getElementById('calc-annual').textContent=fmtAUD(annual)+'/yr';
+  document.getElementById('calc-cpk').textContent=fmtAUD2(cpk)+'/km';
+  document.getElementById('calc-price-used').textContent=fmt(priceCentsPerL)+'¢/L ('+STATE_NAMES[stateCode]+')';
+  document.getElementById('calc-saving').textContent=fmtAUD(annualSaving)+'/yr';
+  document.getElementById('margin-label').textContent=margin;
+
+  renderStateComparison(vehicles, km, cons, fuelKey);
+  renderScenarios(fuelKey);
+}
+
+// ── State Comparison ──────────────────────────────────────────────────────────
+function renderStateComparison(vehicles, km, cons, fuelKey){
+  const weeklyL=vehicles*km*(cons/100);
+  const rows=STATES.map(s=>{
+    const p=prices[s]?.[fuelKey]||0;
+    const w=weeklyL*(p/100);
+    return {state:s, price:p, weekly:w, monthly:w*52/12, annual:w*52};
+  });
+  const minAnnual=Math.min(...rows.map(r=>r.annual));
+
+  document.getElementById('state-comp-body').innerHTML=rows.map(r=>{
+    const diff=r.annual-minAnnual;
+    const isCheapest=diff<1;
+    return `<tr class="${isCheapest?'cheapest-row':''}">
+      <td><strong>${r.state}</strong><br><span class="text-xs text-muted">${STATE_NAMES[r.state]}</span></td>
+      <td><span class="comp-price mono">${fmt(r.price)}¢</span></td>
+      <td><span class="mono">${fmtAUD(r.weekly)}</span></td>
+      <td><span class="mono">${fmtAUD(r.monthly)}</span></td>
+      <td><span class="mono" style="font-weight:700">${fmtAUD(r.annual)}</span></td>
+      <td>${isCheapest?'<span style="color:var(--green);font-weight:600">Cheapest</span>':'<span class="text-muted">+'+fmtAUD(diff)+'</span>'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Scenarios ─────────────────────────────────────────────────────────────────
+function renderScenarios(fuelKey){
+  const scenarios=[
+    {label:'Small Fleet',vehicles:5,km:400,cons:9,desc:'5 utes · 400km/wk · 9L/100km'},
+    {label:'Medium Fleet',vehicles:20,km:600,cons:11,desc:'20 vans · 600km/wk · 11L/100km'},
+    {label:'Large Fleet',vehicles:50,km:800,cons:14,desc:'50 trucks · 800km/wk · 14L/100km'},
+  ];
+  const state=document.getElementById('calc-state').value;
+  const p=(prices[state]?.[fuelKey]||0)/100;
+
+  document.getElementById('scenarios').innerHTML=scenarios.map(s=>{
+    const wL=s.vehicles*s.km*(s.cons/100);
+    const monthly=wL*p*52/12;
+    const annual=wL*p*52;
+    return `<div class="scenario-card">
+      <h4>${s.label}</h4>
+      <div class="scenario-amount">${fmtAUD(monthly)}<span style="font-size:.75rem;color:var(--muted-fg)">/mo</span></div>
+      <div class="scenario-sub">${s.desc}</div>
+      <div class="scenario-sub">${fmtAUD(annual)}/year</div>
+      <div class="scenario-saving">Save ${fmtAUD(annual*0.05)}/yr with 5% cheaper fuel</div>
+    </div>`;
+  }).join('');
+}
+
+// ── FAQ ────────────────────────────────────────────────────────────────────────
+const FAQS=[
+  {q:'How accurate is this fleet fuel cost calculator?',a:'The calculator uses live fuel price data from the NSW FuelCheck API and WA FuelWatch RSS feed, updated every 30 minutes. For other states, it uses ACCC-based estimates. Actual costs will vary based on driving conditions, vehicle age, load weight, and route characteristics.'},
+  {q:'What fuel consumption rate should I use for my fleet?',a:'Common Australian fleet averages: passenger cars 7–9 L/100km, utes and SUVs 9–12 L/100km, light commercial vans 10–14 L/100km, rigid trucks 18–25 L/100km, articulated trucks 35–45 L/100km. Check your telematics data or fuel card reports for actual fleet averages.'},
+  {q:'How can I reduce my fleet fuel costs by 15%?',a:'Key strategies: 1) Buy fuel on Tuesday/Wednesday when prices are lowest. 2) Use telematics to reduce harsh acceleration and speeding (+15–25% fuel use). 3) Maintain correct tyre pressure (saves 3%). 4) Optimise routes to cut empty kilometres. 5) Consider fleet fuel cards for 3–6¢/L discount.'},
+  {q:'Is diesel or unleaded cheaper for fleets in Australia?',a:'While diesel has a higher pump price per litre, diesel engines are typically 20–30% more fuel efficient than petrol engines. For high-mileage fleets (600+ km/week per vehicle), diesel usually works out cheaper per kilometre despite the higher per-litre cost.'},
+  {q:'How much does fuel cost per km for a fleet vehicle?',a:'Using current Australian average diesel prices (~325¢/L) and a typical van consumption of 11 L/100km, the fuel cost is approximately 35.8¢/km. For a petrol sedan at 8 L/100km and ~259¢/L, it is about 20.7¢/km. Use the calculator above with your actual figures.'},
+  {q:'What is the cheapest state for fuel in Australia?',a:'ACT and VIC typically have the cheapest fuel due to strong retail competition and proximity to port terminals. NT is consistently the most expensive due to remote transport costs. Use the state comparison table above to see current differences.'},
+  {q:'How does crude oil price affect Australian fuel prices?',a:'WTI crude oil is the primary input cost for petrol and diesel. A $10 USD/barrel rise typically adds 3–5¢/L to Australian pump prices over 2–4 weeks. The AUD/USD exchange rate also plays a significant role — a weaker Australian dollar makes imported crude more expensive.'},
+  {q:'Can I claim fuel as a tax deduction for my fleet?',a:'Yes, fuel is a tax-deductible business expense for Australian businesses. You can also claim GST credits on fuel purchases through your BAS. Keep detailed records (fuel card statements, logbooks) and consult your accountant for FBT implications on employee vehicle use.'},
+];
+
+function renderFAQ(){
+  document.getElementById('faq-list').innerHTML=FAQS.map((f,i)=>`
+    <div class="faq-item" id="faq-${i}">
+      <button class="faq-q" onclick="toggleFAQ(${i})"><span>${f.q}</span><span class="faq-icon">+</span></button>
+      <div class="faq-a">${f.a}</div>
+    </div>
+  `).join('');
+}
+function toggleFAQ(i){
+  const item=document.getElementById('faq-'+i);
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(el=>el.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+document.getElementById('footer-year').textContent=new Date().getFullYear();
+['calc-vehicles','calc-km','calc-consumption','calc-fuel','calc-state','calc-margin'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',calcFuel);
+});
+renderFAQ();
+calcFuel();
+fetchNSW();
+fetchWA();
+setInterval(fetchNSW, 30*60*1000);
+setInterval(fetchWA, 30*60*1000);
+
+// ── Schema Markup ─────────────────────────────────────────────────────────────
+const schema={
+  '@context':'https://schema.org',
+  '@type':'WebApplication',
+  name:'Fleet Fuel Cost Calculator Australia 2026',
+  description:'Free fleet fuel cost calculator using live Australian petrol and diesel prices. Estimate weekly, monthly and annual fuel spend across all states.',
+  url:'https://fleetmate.au/fleet-fuel-cost-calculator/',
+  applicationCategory:'BusinessApplication',
+  operatingSystem:'Web Browser',
+  offers:{'@type':'Offer',price:'0',priceCurrency:'AUD'},
+  publisher:{'@type':'Organization',name:'Fleet Mate',url:'https://fleetmate.au',logo:{'@type':'ImageObject',url:'https://fleetmate.au/wp-content/uploads/fleetmate-logo.png'}},
+};
+const faqSchema={
+  '@context':'https://schema.org',
+  '@type':'FAQPage',
+  mainEntity:FAQS.map(f=>({'@type':'Question',name:f.q,acceptedAnswer:{'@type':'Answer',text:f.a}})),
+};
+const breadcrumbSchema={
+  '@context':'https://schema.org',
+  '@type':'BreadcrumbList',
+  itemListElement:[
+    {'@type':'ListItem',position:1,name:'Fleet Mate',item:'https://fleetmate.au/'},
+    {'@type':'ListItem',position:2,name:'Live Fuel Prices',item:'https://fleetmate.au/live-fuel-data/'},
+    {'@type':'ListItem',position:3,name:'Fleet Fuel Cost Calculator',item:'https://fleetmate.au/fleet-fuel-cost-calculator/'},
+  ],
+};
+function addSchema(obj){const s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(obj);document.head.appendChild(s);}
+addSchema(schema);
+addSchema(faqSchema);
+addSchema(breadcrumbSchema);
+</script>
+</body>
+</html>
