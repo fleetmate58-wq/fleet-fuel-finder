@@ -670,7 +670,7 @@ async function fetchWA(){
 
 async function fetchCrude(){
   try{
-    const r=await fetch('/api/crude-oil');
+    const r=await apiFetch(SUPABASE_URL+'/crude-oil');
     if(!r.ok)throw new Error(r.status);
     app.crude=await r.json();
     document.getElementById('status-crude-dot').style.background='var(--green)';
