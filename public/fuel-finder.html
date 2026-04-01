@@ -617,9 +617,13 @@ function timeSince(str){
 function randJitter(){ return (Math.random()-0.5)*6; }
 
 // ── API Calls ────────────────────────────────────────────────────────────────
+const SUPABASE_URL='https://sahuloieqmiyapdcvuzi.supabase.co/functions/v1';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhaHVsb2llcW1peWFwZGN2dXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDY0OTAsImV4cCI6MjA5MDUyMjQ5MH0.7BXg2Pm2m1l2w8m6BMBoJkSIakMLi7fxDjjgUKR6jJ4';
+const apiFetch=(url)=>fetch(url,{headers:{'Authorization':'Bearer '+SUPABASE_KEY,'apikey':SUPABASE_KEY}});
+
 async function fetchNSW(){
   try{
-    const r=await fetch('/api/fuel-prices?endpoint=prices');
+    const r=await apiFetch(SUPABASE_URL+'/fuel-prices?endpoint=prices');
     if(!r.ok)throw new Error(r.status);
     const d=await r.json();
     if(d?.prices?.length){
