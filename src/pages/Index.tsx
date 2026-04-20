@@ -6,7 +6,6 @@ import FuelPriceTable from '@/components/FuelPriceTable';
 import SuburbSearch from '@/components/SuburbSearch';
 import FuelMap from '@/components/FuelMap';
 import TrendChart from '@/components/TrendChart';
-import FuelCalculator from '@/components/FuelCalculator';
 import FuelTips from '@/components/FuelTips';
 import FAQSection from '@/components/FAQSection';
 import CTASection from '@/components/CTASection';
