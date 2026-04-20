@@ -274,29 +274,18 @@ footer{border-top:1px solid var(--border);padding:2rem 0;background:var(--second
 <script>
 'use strict';
 
-// ── Fallback Prices ────────────────────────────────────────────────────────────
-const FALLBACK = {
-  NSW: { ulp91:258.7, ulp95:274.0, ulp98:282.2, e10:254.4, diesel:324.9, premiumDiesel:325.0, lpg:119.5 },
-  VIC: { ulp91:255.2, ulp95:270.3, ulp98:278.6, e10:251.1, diesel:321.4, premiumDiesel:322.1, lpg:116.8 },
-  QLD: { ulp91:263.8, ulp95:279.2, ulp98:287.5, e10:259.5, diesel:329.9, premiumDiesel:330.6, lpg:124.6 },
-  WA:  { ulp91:270.9, ulp95:286.4, ulp98:294.7, e10:266.6, diesel:337.0, premiumDiesel:337.7, lpg:131.6 },
-  SA:  { ulp91:264.9, ulp95:280.2, ulp98:288.5, e10:260.6, diesel:331.0, premiumDiesel:331.7, lpg:125.6 },
-  TAS: { ulp91:271.1, ulp95:286.6, ulp98:295.0, e10:267.0, diesel:337.1, premiumDiesel:337.9, lpg:132.0 },
-  NT:  { ulp91:296.8, ulp95:312.3, ulp98:320.7, e10:292.5, diesel:362.9, premiumDiesel:363.6, lpg:157.5 },
-  ACT: { ulp91:256.5, ulp95:271.8, ulp98:280.1, e10:252.2, diesel:322.9, premiumDiesel:323.7, lpg:118.1 },
-};
-const STATES = ['NSW','VIC','QLD','WA','SA','TAS','NT','ACT'];
-const STATE_NAMES = { NSW:'New South Wales', VIC:'Victoria', QLD:'Queensland', WA:'Western Australia', SA:'South Australia', TAS:'Tasmania', NT:'Northern Territory', ACT:'Australian Capital Territory' };
+// ── Fallback NSW Prices ───────────────────────────────────────────────────────
+const FALLBACK_NSW = { ulp91:258.7, ulp95:274.0, ulp98:282.2, e10:254.4, diesel:324.9, premiumDiesel:325.0, lpg:119.5 };
 const FUEL_LABELS = { ulp91:'Unleaded 91', ulp95:'Unleaded 95', ulp98:'Unleaded 98', e10:'E10', diesel:'Diesel', premiumDiesel:'Premium Diesel', lpg:'LPG' };
 
-const prices = JSON.parse(JSON.stringify(FALLBACK));
+const prices = { NSW: { ...FALLBACK_NSW } };
 
 // ── Utilities ──────────────────────────────────────────────────────────────────
 function fmt(v){ return typeof v==='number' ? v.toFixed(1) : '—'; }
 function fmtAUD(d){ return new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',maximumFractionDigits:0}).format(d); }
 function fmtAUD2(d){ return new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',minimumFractionDigits:2,maximumFractionDigits:2}).format(d); }
 
-// ── Fetch Live Prices ──────────────────────────────────────────────────────────
+// ── Fetch Live NSW Prices ─────────────────────────────────────────────────────
 const SUPABASE_URL='https://sahuloieqmiyapdcvuzi.supabase.co/functions/v1';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhaHVsb2llcW1peWFwZGN2dXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDY0OTAsImV4cCI6MjA5MDUyMjQ5MH0.7BXg2Pm2m1l2w8m6BMBoJkSIakMLi7fxDjjgUKR6jJ4';
 const apiFetch=(url)=>fetch(url,{headers:{'Authorization':'Bearer '+SUPABASE_KEY,'apikey':SUPABASE_KEY}});
@@ -318,25 +307,14 @@ async function fetchNSW(){
   }catch(e){console.warn('NSW fetch failed:',e);}
 }
 
-async function fetchWA(){
-  try{
-    const r=await apiFetch(SUPABASE_URL+'/wa-fuel');
-    if(!r.ok)return;
-    const d=await r.json();
-    if(d?.prices) Object.assign(prices.WA, d.prices);
-    calcFuel();
-  }catch(e){console.warn('WA fetch failed:',e);}
-}
-
 // ── Calculator ─────────────────────────────────────────────────────────────────
 function calcFuel(){
   const vehicles=Math.max(1,+document.getElementById('calc-vehicles').value||0);
   const km=Math.max(1,+document.getElementById('calc-km').value||0);
   const cons=Math.max(1,+document.getElementById('calc-consumption').value||0);
   const fuelKey=document.getElementById('calc-fuel').value;
-  const stateCode=document.getElementById('calc-state').value;
   const margin=Math.max(0,+document.getElementById('calc-margin').value||0);
-  const priceCentsPerL=prices[stateCode]?.[fuelKey]||0;
+  const priceCentsPerL=prices.NSW?.[fuelKey]||0;
   const pricePerL=priceCentsPerL/100;
   const weeklyL=vehicles*km*(cons/100);
   const weekly=weeklyL*pricePerL;
@@ -352,36 +330,11 @@ function calcFuel(){
   document.getElementById('calc-monthly-big').textContent=fmtAUD(monthly);
   document.getElementById('calc-annual').textContent=fmtAUD(annual)+'/yr';
   document.getElementById('calc-cpk').textContent=fmtAUD2(cpk)+'/km';
-  document.getElementById('calc-price-used').textContent=fmt(priceCentsPerL)+'¢/L ('+STATE_NAMES[stateCode]+')';
+  document.getElementById('calc-price-used').textContent=fmt(priceCentsPerL)+'¢/L (NSW live avg)';
   document.getElementById('calc-saving').textContent=fmtAUD(annualSaving)+'/yr';
   document.getElementById('margin-label').textContent=margin;
 
-  renderStateComparison(vehicles, km, cons, fuelKey);
   renderScenarios(fuelKey);
-}
-
-// ── State Comparison ──────────────────────────────────────────────────────────
-function renderStateComparison(vehicles, km, cons, fuelKey){
-  const weeklyL=vehicles*km*(cons/100);
-  const rows=STATES.map(s=>{
-    const p=prices[s]?.[fuelKey]||0;
-    const w=weeklyL*(p/100);
-    return {state:s, price:p, weekly:w, monthly:w*52/12, annual:w*52};
-  });
-  const minAnnual=Math.min(...rows.map(r=>r.annual));
-
-  document.getElementById('state-comp-body').innerHTML=rows.map(r=>{
-    const diff=r.annual-minAnnual;
-    const isCheapest=diff<1;
-    return `<tr class="${isCheapest?'cheapest-row':''}">
-      <td><strong>${r.state}</strong><br><span class="text-xs text-muted">${STATE_NAMES[r.state]}</span></td>
-      <td><span class="comp-price mono">${fmt(r.price)}¢</span></td>
-      <td><span class="mono">${fmtAUD(r.weekly)}</span></td>
-      <td><span class="mono">${fmtAUD(r.monthly)}</span></td>
-      <td><span class="mono" style="font-weight:700">${fmtAUD(r.annual)}</span></td>
-      <td>${isCheapest?'<span style="color:var(--green);font-weight:600">Cheapest</span>':'<span class="text-muted">+'+fmtAUD(diff)+'</span>'}</td>
-    </tr>`;
-  }).join('');
 }
 
 // ── Scenarios ─────────────────────────────────────────────────────────────────
@@ -391,8 +344,7 @@ function renderScenarios(fuelKey){
     {label:'Medium Fleet',vehicles:20,km:600,cons:11,desc:'20 vans · 600km/wk · 11L/100km'},
     {label:'Large Fleet',vehicles:50,km:800,cons:14,desc:'50 trucks · 800km/wk · 14L/100km'},
   ];
-  const state=document.getElementById('calc-state').value;
-  const p=(prices[state]?.[fuelKey]||0)/100;
+  const p=(prices.NSW?.[fuelKey]||0)/100;
 
   document.getElementById('scenarios').innerHTML=scenarios.map(s=>{
     const wL=s.vehicles*s.km*(s.cons/100);
@@ -410,14 +362,13 @@ function renderScenarios(fuelKey){
 
 // ── FAQ ────────────────────────────────────────────────────────────────────────
 const FAQS=[
-  {q:'How accurate is this fleet fuel cost calculator?',a:'The calculator uses live fuel price data from the NSW FuelCheck API and WA FuelWatch RSS feed, updated every 30 minutes. For other states, it uses ACCC-based estimates. Actual costs will vary based on driving conditions, vehicle age, load weight, and route characteristics.'},
+  {q:'How accurate is this NSW fleet fuel cost calculator?',a:'The calculator uses live fuel price data from the official NSW FuelCheck API, refreshed every 30 minutes. Actual costs will vary based on driving conditions, vehicle age, load weight, and route characteristics.'},
   {q:'What fuel consumption rate should I use for my fleet?',a:'Common Australian fleet averages: passenger cars 7–9 L/100km, utes and SUVs 9–12 L/100km, light commercial vans 10–14 L/100km, rigid trucks 18–25 L/100km, articulated trucks 35–45 L/100km. Check your telematics data or fuel card reports for actual fleet averages.'},
-  {q:'How can I reduce my fleet fuel costs by 15%?',a:'Key strategies: 1) Buy fuel on Tuesday/Wednesday when prices are lowest. 2) Use telematics to reduce harsh acceleration and speeding (+15–25% fuel use). 3) Maintain correct tyre pressure (saves 3%). 4) Optimise routes to cut empty kilometres. 5) Consider fleet fuel cards for 3–6¢/L discount.'},
-  {q:'Is diesel or unleaded cheaper for fleets in Australia?',a:'While diesel has a higher pump price per litre, diesel engines are typically 20–30% more fuel efficient than petrol engines. For high-mileage fleets (600+ km/week per vehicle), diesel usually works out cheaper per kilometre despite the higher per-litre cost.'},
-  {q:'How much does fuel cost per km for a fleet vehicle?',a:'Using current Australian average diesel prices (~325¢/L) and a typical van consumption of 11 L/100km, the fuel cost is approximately 35.8¢/km. For a petrol sedan at 8 L/100km and ~259¢/L, it is about 20.7¢/km. Use the calculator above with your actual figures.'},
-  {q:'What is the cheapest state for fuel in Australia?',a:'ACT and VIC typically have the cheapest fuel due to strong retail competition and proximity to port terminals. NT is consistently the most expensive due to remote transport costs. Use the state comparison table above to see current differences.'},
-  {q:'How does crude oil price affect Australian fuel prices?',a:'WTI crude oil is the primary input cost for petrol and diesel. A $10 USD/barrel rise typically adds 3–5¢/L to Australian pump prices over 2–4 weeks. The AUD/USD exchange rate also plays a significant role — a weaker Australian dollar makes imported crude more expensive.'},
-  {q:'Can I claim fuel as a tax deduction for my fleet?',a:'Yes, fuel is a tax-deductible business expense for Australian businesses. You can also claim GST credits on fuel purchases through your BAS. Keep detailed records (fuel card statements, logbooks) and consult your accountant for FBT implications on employee vehicle use.'},
+  {q:'How can I reduce my NSW fleet fuel costs by 15%?',a:'Key strategies: 1) Buy fuel on Tuesday/Wednesday when Sydney prices are typically lowest in the price cycle. 2) Use telematics to reduce harsh acceleration and speeding (+15–25% fuel use). 3) Maintain correct tyre pressure (saves 3%). 4) Optimise routes to cut empty kilometres. 5) Use fleet fuel cards for 3–6¢/L discount.'},
+  {q:'Is diesel or unleaded cheaper for NSW fleets?',a:'While diesel has a higher pump price per litre in NSW, diesel engines are typically 20–30% more fuel efficient than petrol. For high-mileage fleets (600+ km/week per vehicle), diesel usually works out cheaper per kilometre.'},
+  {q:'How much does fuel cost per km for a NSW fleet vehicle?',a:'Using current NSW average diesel prices (~325¢/L) and a typical van consumption of 11 L/100km, the fuel cost is approximately 35.8¢/km. For a petrol sedan at 8 L/100km and ~259¢/L, it is about 20.7¢/km. Use the calculator above with your actual figures.'},
+  {q:'When is the best day to refuel in Sydney and NSW?',a:'Sydney follows a roughly 5–6 week price cycle. Within each cycle, prices typically dip mid-week (Tuesday–Wednesday) and spike on Thursday or Friday. Timing fleet fill-ups around the dip can save 20–40¢/L versus the peak.'},
+  {q:'Can I claim fuel as a tax deduction for my NSW fleet?',a:'Yes, fuel is a tax-deductible business expense for Australian businesses. You can also claim GST credits on fuel purchases through your BAS. Keep detailed records (fuel card statements, logbooks) and consult your accountant for FBT implications on employee vehicle use.'},
 ];
 
 function renderFAQ(){
@@ -437,22 +388,20 @@ function toggleFAQ(i){
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 document.getElementById('footer-year').textContent=new Date().getFullYear();
-['calc-vehicles','calc-km','calc-consumption','calc-fuel','calc-state','calc-margin'].forEach(id=>{
+['calc-vehicles','calc-km','calc-consumption','calc-fuel','calc-margin'].forEach(id=>{
   document.getElementById(id).addEventListener('input',calcFuel);
 });
 renderFAQ();
 calcFuel();
 fetchNSW();
-fetchWA();
 setInterval(fetchNSW, 30*60*1000);
-setInterval(fetchWA, 30*60*1000);
 
 // ── Schema Markup ─────────────────────────────────────────────────────────────
 const schema={
   '@context':'https://schema.org',
   '@type':'WebApplication',
-  name:'Fleet Fuel Cost Calculator Australia 2026',
-  description:'Free fleet fuel cost calculator using live Australian petrol and diesel prices. Estimate weekly, monthly and annual fuel spend across all states.',
+  name:'NSW Fleet Fuel Cost Calculator 2026',
+  description:'Free NSW fleet fuel cost calculator using live NSW FuelCheck petrol and diesel prices. Estimate weekly, monthly and annual fuel spend.',
   url:'https://fleetmate.au/fleet-fuel-cost-calculator/',
   applicationCategory:'BusinessApplication',
   operatingSystem:'Web Browser',
