@@ -43,7 +43,17 @@ const Index = () => {
         <SuburbSearch />
         <FuelMap />
         <TrendChart />
-        <FuelCalculator prices={prices} />
+        <section className="container mx-auto px-4 py-12">
+          <div className="bg-card border border-border rounded-lg p-8 text-center orange-glow">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">Fuel Cost Calculator Australia</h2>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Work out your trip fuel cost, litres per 100 km, km per litre and cost per kilometre with live NSW fuel prices. Free Australian petrol & diesel calculator.
+            </p>
+            <a href="/fuel-cost-calculator/" className="inline-block bg-primary text-primary-foreground font-semibold px-8 py-4 rounded-full hover:opacity-90 transition-all uppercase tracking-wide text-sm">
+              Open Fuel Cost Calculator →
+            </a>
+          </div>
+        </section>
         <FuelTips />
         <FAQSection prices={prices.NSW} />
         <CTASection />
