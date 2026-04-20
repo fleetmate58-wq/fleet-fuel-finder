@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fuel Cost Calculator Australia | Petrol & Diesel Cost Per KM | Fleet Mate</title>
+<meta name="description" content="Free fuel cost calculator Australia — work out trip petrol cost, fuel consumption (L/100km), km per litre and cost per km. Live NSW fuel prices. Petrol, diesel, E10, ULP95, ULP98 & LPG." />
+<meta name="keywords" content="fuel cost calculator, fuel cost calculator australia, petrol calculator, petrol calculator australia, gas calculator australia, fuel calculator, fuel consumption calculator, fuel usage estimator, gas price calculator, fuel spend calculator, gas cost estimator, gas expenditure calculator, cost calculator gas, compute gas cost, figure fuel cost, how to work out litres per 100km, how to work out litres per 100 kilometers, how to work out km per litre, how to work out kilometres per litre, how to calculate kilometer per liter, how many liters of petrol per kilometer, how to calculate fuel efficiency, how to calculate fuel average, how to work out fuel usage, how to calculate petrol cost per km, how to work out cost of petrol per km, how to work out fuel consumption, how to calculate fuel usage, how to compute fuel consumption, how to figure out fuel consumption" />
+<link rel="canonical" href="https://fleetmate.au/fuel-cost-calculator/" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Fuel Cost Calculator Australia — Petrol, Diesel & Cost Per KM" />
+<meta property="og:description" content="Free Australian fuel cost calculator with live NSW prices. Calculate trip cost, L/100km, km/L and cost per km in seconds." />
+<meta property="og:url" content="https://fleetmate.au/fuel-cost-calculator/" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Fuel Cost Calculator Australia",
+  "url": "https://fleetmate.au/fuel-cost-calculator/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "description": "Free Australian fuel cost calculator. Calculate petrol or diesel trip cost, fuel consumption (L/100km), km per litre and cost per kilometre with live NSW FuelCheck prices.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD" },
+  "publisher": { "@type": "Organization", "name": "Fleet Mate", "url": "https://fleetmate.au" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to calculate fuel cost in Australia",
+  "description": "Work out the fuel cost of any trip in Australia using distance, fuel consumption and fuel price.",
+  "totalTime": "PT1M",
+  "supply": [
+    { "@type": "HowToSupply", "name": "Trip distance in kilometres" },
+    { "@type": "HowToSupply", "name": "Vehicle fuel consumption (L/100km)" },
+    { "@type": "HowToSupply", "name": "Current fuel price (¢/L or $/L)" }
+  ],
+  "step": [
+    { "@type": "HowToStep", "name": "Find litres used", "text": "Multiply distance (km) by consumption (L/100km) and divide by 100. Example: 350 km × 8.5 ÷ 100 = 29.75 L." },
+    { "@type": "HowToStep", "name": "Multiply by fuel price", "text": "Multiply litres used by the price per litre. Example: 29.75 L × $1.95 = $58.01 trip cost." },
+    { "@type": "HowToStep", "name": "Cost per km", "text": "Divide trip cost by distance to get cost per km. Example: $58.01 ÷ 350 = $0.166/km." }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"How do I figure fuel cost for a trip in Australia?","acceptedAnswer":{"@type":"Answer","text":"Multiply trip distance (km) by your vehicle's fuel consumption (L/100km), divide by 100 to get litres used, then multiply by the current price per litre. Our fuel cost calculator does this instantly with live NSW fuel prices."}},
+    {"@type":"Question","name":"How to work out litres per 100km?","acceptedAnswer":{"@type":"Answer","text":"Litres per 100 km = (litres used ÷ km driven) × 100. For example, if you used 42 litres over 500 km: (42 ÷ 500) × 100 = 8.4 L/100km."}},
+    {"@type":"Question","name":"How to work out km per litre?","acceptedAnswer":{"@type":"Answer","text":"Kilometres per litre = km driven ÷ litres used. Example: 500 km ÷ 42 L = 11.9 km/L. To convert from L/100km to km/L, divide 100 by your L/100km figure."}},
+    {"@type":"Question","name":"How to calculate petrol cost per km?","acceptedAnswer":{"@type":"Answer","text":"Cost per km = (fuel consumption in L/100km ÷ 100) × price per litre. Example: an 8 L/100km car at $1.95/L costs (8 ÷ 100) × 1.95 = $0.156 per km."}},
+    {"@type":"Question","name":"How many litres of petrol per kilometre does a car use?","acceptedAnswer":{"@type":"Answer","text":"Most Australian passenger cars use 0.06–0.10 L per km (6–10 L/100km). Small hatchbacks: ~0.06 L/km. Sedans: ~0.07–0.08 L/km. SUVs and utes: ~0.09–0.12 L/km."}},
+    {"@type":"Question","name":"How to calculate fuel efficiency?","acceptedAnswer":{"@type":"Answer","text":"Fill your tank, reset the trip meter, drive normally, then refill. Divide litres added by km driven and multiply by 100 for L/100km. Lower numbers mean better fuel efficiency."}},
+    {"@type":"Question","name":"How to calculate fuel average?","acceptedAnswer":{"@type":"Answer","text":"Track litres used and km driven over several tanks, then apply the L/100km formula: (total litres ÷ total km) × 100. Averaging multiple tanks gives a more accurate figure than a single fill-up."}},
+    {"@type":"Question","name":"What is a good fuel consumption in Australia?","acceptedAnswer":{"@type":"Answer","text":"Under 6 L/100km is excellent, 6–8 L/100km is good for most petrol cars, 8–10 L/100km is average for SUVs, and over 12 L/100km is high. Diesel utes typically achieve 7–10 L/100km."}},
+    {"@type":"Question","name":"Are fuel prices in this calculator live?","acceptedAnswer":{"@type":"Answer","text":"Yes. Petrol and diesel prices are pulled live from the official NSW Government FuelCheck API and refreshed every 30 minutes. You can also enter any price manually."}},
+    {"@type":"Question","name":"Can I use this petrol calculator for diesel?","acceptedAnswer":{"@type":"Answer","text":"Yes — select Diesel, Premium Diesel, ULP91, ULP95, ULP98, E10 or LPG from the fuel type dropdown. The calculator works for any fuel and any vehicle in Australia."}}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://fleetmate.au/"},
+    {"@type":"ListItem","position":2,"name":"Live Fuel Data","item":"https://fleetmate.au/live-fuel-data/"},
+    {"@type":"ListItem","position":3,"name":"Fuel Cost Calculator","item":"https://fleetmate.au/fuel-cost-calculator/"}
+  ]
+}
+</script>
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --orange:#E8562A;--orange-dark:#c5471f;--orange-soft:#fff1ec;
+    --ink:#1a1a1a;--muted:#6b7280;--line:#e5e7eb;--bg:#ffffff;--soft:#fafafa;
+    --green:#16a34a;--red:#dc2626;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--orange);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+  header.site{border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:50}
+  header.site .row{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+  .brand{font-weight:700;font-size:18px;color:var(--ink)}
+  .brand span{color:var(--orange)}
+  .crumbs{font-size:13px;color:var(--muted);padding:14px 0}
+  .crumbs a{color:var(--muted)}
+  .crumbs span{color:var(--ink);font-weight:500}
+
+  .hero{padding:36px 0 24px;background:linear-gradient(180deg,#fff,var(--soft))}
+  .hero h1{font-size:clamp(28px,4vw,42px);line-height:1.15;font-weight:700;margin-bottom:12px;letter-spacing:-0.02em}
+  .hero h1 em{color:var(--orange);font-style:normal}
+  .hero p.lead{font-size:17px;color:var(--muted);max-width:780px}
+  .live-pill{display:inline-flex;align-items:center;gap:8px;background:var(--orange-soft);color:var(--orange);padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:14px}
+  .dot{width:8px;height:8px;background:var(--orange);border-radius:50%;animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  /* Calculator card */
+  .calc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px;margin-top:18px;box-shadow:0 4px 20px rgba(232,86,42,.06)}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:0}
+  .tab{padding:10px 16px;background:transparent;border:none;border-bottom:2px solid transparent;font-family:inherit;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s}
+  .tab.active{color:var(--orange);border-bottom-color:var(--orange)}
+  .tab:hover{color:var(--ink)}
+  .panel{display:none}
+  .panel.active{display:block}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  @media(max-width:720px){.grid{grid-template-columns:1fr;gap:20px}.calc{padding:20px}}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:500}
+  input,select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-family:inherit;font-size:15px;background:#fff;transition:border .15s,box-shadow .15s}
+  input:focus,select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(232,86,42,.12)}
+  .field{margin-bottom:16px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .preset-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .preset-btns button{background:#f3f4f6;border:1px solid transparent;color:var(--ink);padding:6px 10px;border-radius:999px;font-size:12px;font-family:inherit;cursor:pointer;transition:all .15s}
+  .preset-btns button:hover,.preset-btns button.on{background:var(--orange-soft);border-color:var(--orange);color:var(--orange)}
+
+  .result{background:var(--soft);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px;height:100%}
+  .result-block{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .result-block:last-child{border:none}
+  .result-block .k{font-size:13px;color:var(--muted)}
+  .result-block .v{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink)}
+  .result-block.hero-out{background:#fff;border:2px solid var(--orange);border-radius:10px;padding:16px;border-bottom:2px solid var(--orange)}
+  .result-block.hero-out .v{font-size:30px;color:var(--orange)}
+  .cta{display:inline-block;background:var(--orange);color:#fff;padding:14px 26px;border-radius:999px;font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.04em;margin-top:8px;text-align:center}
+  .cta:hover{background:var(--orange-dark);text-decoration:none;color:#fff}
+
+  /* Sections */
+  section.block{padding:48px 0;border-top:1px solid var(--line)}
+  section.block h2{font-size:clamp(22px,2.6vw,30px);font-weight:700;margin-bottom:8px;letter-spacing:-0.01em}
+  section.block .bar{width:48px;height:3px;background:var(--orange);border-radius:2px;margin-bottom:20px}
+  section.block p{color:var(--ink);margin-bottom:14px;max-width:880px}
+  section.block h3{font-size:18px;font-weight:600;margin:22px 0 8px}
+  .formula{background:var(--soft);border-left:3px solid var(--orange);padding:14px 18px;border-radius:0 8px 8px 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;margin:10px 0;overflow-x:auto;white-space:nowrap}
+  .example{background:#fff;border:1px solid var(--line);padding:14px 18px;border-radius:10px;margin:8px 0;font-size:14px;color:var(--muted)}
+  .example b{color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th{background:var(--soft);text-align:left;padding:12px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+  td{padding:12px 14px;border-top:1px solid var(--line)}
+  tr:hover td{background:var(--soft)}
+
+  details{background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;padding:0}
+  details summary{padding:16px 18px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:15px}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:'+';color:var(--orange);font-size:22px;font-weight:300;transition:transform .2s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{padding:0 18px 16px;color:var(--muted);font-size:14px;margin:0}
+
+  .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:14px}
+  .tip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px}
+  .tip h4{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--orange)}
+  .tip p{font-size:14px;color:var(--muted);margin:0}
+
+  .related{background:var(--soft);border-radius:14px;padding:24px;margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .related a{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px;color:var(--ink);font-weight:600;display:block}
+  .related a:hover{border-color:var(--orange);text-decoration:none}
+  .related a span{display:block;font-size:13px;color:var(--muted);font-weight:400;margin-top:4px}
+
+  footer.site{border-top:1px solid var(--line);padding:30px 0;margin-top:40px;font-size:13px;color:var(--muted)}
+  footer.site p{margin-bottom:8px;max-width:none}
+  .status{font-size:12px;color:var(--muted);margin-top:10px}
+  .status.live{color:var(--green)}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap row">
+    <a href="/" class="brand">Fleet<span>Mate</span></a>
+    <a href="https://fleetmate.au/contacts/" target="_blank" rel="noopener" class="cta" style="margin:0;padding:10px 18px;font-size:12px">Get a Quote</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/fuel-finder.html">Live Fuel Data</a> &rsaquo; <span>Fuel Cost Calculator</span>
+  </nav>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="live-pill"><span class="dot"></span> Live NSW FuelCheck prices</span>
+    <h1>Fuel Cost Calculator <em>Australia</em></h1>
+    <p class="lead">Free Australian petrol and fuel calculator. <strong>Figure fuel cost</strong> for any trip, work out <strong>litres per 100 km</strong>, <strong>km per litre</strong>, fuel efficiency, fuel usage and <strong>petrol cost per km</strong> in seconds. Live NSW fuel prices auto-loaded — supports ULP91, ULP95, ULP98, E10, Diesel & LPG.</p>
+
+    <div class="calc" id="calc">
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="trip">Trip Cost</button>
+        <button class="tab" data-tab="consumption">L/100km Calculator</button>
+        <button class="tab" data-tab="kmperl">Km per Litre</button>
+        <button class="tab" data-tab="costkm">Cost per KM</button>
+        <button class="tab" data-tab="estimator">Fuel Usage Estimator</button>
+      </div>
+
+      <!-- TRIP COST -->
+      <div class="panel active" id="panel-trip">
+        <div class="grid">
+          <div>
+            <div class="field">
+              <label for="t-distance">Trip distance (km)</label>
+              <input type="number" id="t-distance" value="350" min="1" step="1" />
+            </div>
+            <div class="field">
+              <label for="t-consumption">Fuel consumption (L/100km)</label>
+              <input type="number" id="t-consumption" value="8.5" min="0.1" step="0.1" />
+              <div class="preset-btns" id="t-presets">
+                <button type="button" data-c="5.5">Hatchback 5.5</button>
+                <button type="button" data-c="7.5">Sedan 7.5</button>
+                <button type="button" data-c="9">SUV 9</button>
+                <button type="button" data-c="10.5">Ute 10.5</button>
+                <button type="button" data-c="13">Van 13</button>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="t-fueltype">Fuel type</label>
+                <select id="t-fueltype">
+                  <option value="ulp91">Unleaded 91</option>
+                  <option value="e10">E10</option>
+                  <option value="ulp95">Premium 95</option>
+                  <option value="ulp98">Premium 98</option>
+                  <option value="diesel" selected>Diesel</option>
+                  <option value="lpg">LPG</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="t-price">Price (¢/L)</label>
+                <input type="number" id="t-price" value="195.0" min="1" step="0.1" />
+              </div>
+            </div>
+            <div class="field" style="display:flex;align-items:center;gap:8px">
+              <input type="checkbox" id="t-return" style="width:auto" />
+              <label for="t-return" style="margin:0;color:var(--ink)">Return trip (×2 distance)</label>
+            </div>
+            <p class="status" id="t-status">Loading live NSW prices…</p>
+          </div>
+          <div class="result">
+            <div class="result-block hero-out">
+              <span class="k">Total trip cost</span>
+              <span class="v" id="o-trip-cost">$0.00</span>
+            </div>
+            <div class="result-block"><span class="k">Litres used</span><span class="v" id="o-trip-litres">0 L</span></div>
+            <div class="result-block"><span class="k">Cost per km</span><span class="v" id="o-trip-cpk">$0.00/km</span></div>
+            <div class="result-block"><span class="k">Daily (1 trip/day)</span><span class="v" id="o-trip-day">$0.00</span></div>
+            <div class="result-block"><span class="k">Weekly (5 days)</span><span class="v" id="o-trip-week">$0.00</span></div>
+            <div class="result-block"><span class="k">Annual (260 days)</span><span class="v" id="o-trip-year">$0.00</span></div>
+            <a class="cta" href="https://fleetmate.au/contacts/" target="_blank" rel="noopener">Save up to 8% on fuel →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- L/100km -->
+      <div class="panel" id="panel-consumption">
+        <div class="grid">
+          <div>
+            <p style="color:var(--muted);font-size:14px;margin-bottom:18px">Enter how many <strong>litres</strong> you used and how many <strong>kilometres</strong> you drove. Great for working out your real-world fuel consumption after a tank fill-up.</p>
+            <div class="field">
+              <label for="c-litres">Litres of fuel used</label>
+              <input type="number" id="c-litres" value="42" min="0.1" step="0.1" />
+            </div>
+            <div class="field">
+              <label for="c-km">Kilometres driven</label>
+              <input type="number" id="c-km" value="500" min="1" step="1" />
+            </div>
+          </div>
+          <div class="result">
+            <div class="result-block hero-out"><span class="k">Litres per 100 km</span><span class="v" id="o-c-l100">0.0 L/100km</span></div>
+            <div class="result-block"><span class="k">Kilometres per litre</span><span class="v" id="o-c-kml">0.0 km/L</span></div>
+            <div class="result-block"><span class="k">Litres per kilometre</span><span class="v" id="o-c-lpk">0.000 L/km</span></div>
+            <div class="result-block"><span class="k">Rating</span><span class="v" id="o-c-rate">—</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KM PER LITRE -->
+      <div class="panel" id="panel-kmperl">
+        <div class="grid">
+          <div>
+            <p style="color:var(--muted);font-size:14px;margin-bottom:18px">Convert between <strong>L/100km</strong> (Australian standard) and <strong>km/L</strong>. Type into either field — the other updates automatically.</p>
+            <div class="field">
+              <label for="k-l100">Litres per 100 km (L/100km)</label>
+              <input type="number" id="k-l100" value="8" min="0.1" step="0.1" />
+            </div>
+            <div class="field">
+              <label for="k-kml">Kilometres per litre (km/L)</label>
+              <input type="number" id="k-kml" value="12.5" min="0.1" step="0.1" />
+            </div>
+            <div class="field">
+              <label for="k-tank">Tank size (L) — optional</label>
+              <input type="number" id="k-tank" value="55" min="1" step="1" />
+            </div>
+          </div>
+          <div class="result">
+            <div class="result-block hero-out"><span class="k">Range on a full tank</span><span class="v" id="o-k-range">0 km</span></div>
+            <div class="result-block"><span class="k">Equivalent MPG (US)</span><span class="v" id="o-k-mpgus">0 mpg</span></div>
+            <div class="result-block"><span class="k">Equivalent MPG (UK)</span><span class="v" id="o-k-mpguk">0 mpg</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COST PER KM -->
+      <div class="panel" id="panel-costkm">
+        <div class="grid">
+          <div>
+            <p style="color:var(--muted);font-size:14px;margin-bottom:18px">Work out the <strong>petrol cost per km</strong> for any vehicle and fuel price.</p>
+            <div class="field">
+              <label for="cpk-cons">Fuel consumption (L/100km)</label>
+              <input type="number" id="cpk-cons" value="8" min="0.1" step="0.1" />
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="cpk-fueltype">Fuel type</label>
+                <select id="cpk-fueltype">
+                  <option value="ulp91">Unleaded 91</option>
+                  <option value="e10">E10</option>
+                  <option value="ulp95">Premium 95</option>
+                  <option value="ulp98">Premium 98</option>
+                  <option value="diesel">Diesel</option>
+                  <option value="lpg">LPG</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="cpk-price">Price (¢/L)</label>
+                <input type="number" id="cpk-price" value="195.0" min="1" step="0.1" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="cpk-annual">Annual km driven</label>
+              <input type="number" id="cpk-annual" value="15000" min="1" step="100" />
+            </div>
+          </div>
+          <div class="result">
+            <div class="result-block hero-out"><span class="k">Cost per kilometre</span><span class="v" id="o-cpk">$0.00/km</span></div>
+            <div class="result-block"><span class="k">Cost per 100 km</span><span class="v" id="o-cpk100">$0.00</span></div>
+            <div class="result-block"><span class="k">Annual fuel spend</span><span class="v" id="o-cpk-year">$0.00</span></div>
+            <div class="result-block"><span class="k">Monthly fuel spend</span><span class="v" id="o-cpk-month">$0.00</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESTIMATOR -->
+      <div class="panel" id="panel-estimator">
+        <div class="grid">
+          <div>
+            <p style="color:var(--muted);font-size:14px;margin-bottom:18px"><strong>Fuel usage estimator</strong> — find out how many litres of petrol you'll need for a planned trip and what it'll cost.</p>
+            <div class="field">
+              <label for="e-distance">Distance to drive (km)</label>
+              <input type="number" id="e-distance" value="600" min="1" step="1" />
+            </div>
+            <div class="field">
+              <label for="e-cons">Vehicle consumption (L/100km)</label>
+              <input type="number" id="e-cons" value="9" min="0.1" step="0.1" />
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="e-fueltype">Fuel type</label>
+                <select id="e-fueltype">
+                  <option value="ulp91">Unleaded 91</option>
+                  <option value="e10">E10</option>
+                  <option value="ulp95">Premium 95</option>
+                  <option value="ulp98">Premium 98</option>
+                  <option value="diesel">Diesel</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="e-price">Price (¢/L)</label>
+                <input type="number" id="e-price" value="195.0" min="1" step="0.1" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="e-pax">Split cost between passengers</label>
+              <input type="number" id="e-pax" value="1" min="1" step="1" />
+            </div>
+          </div>
+          <div class="result">
+            <div class="result-block hero-out"><span class="k">Litres needed</span><span class="v" id="o-e-litres">0 L</span></div>
+            <div class="result-block"><span class="k">Total fuel cost</span><span class="v" id="o-e-cost">$0.00</span></div>
+            <div class="result-block"><span class="k">Cost per person</span><span class="v" id="o-e-pax">$0.00</span></div>
+            <div class="result-block"><span class="k">Cost per km</span><span class="v" id="o-e-cpk">$0.00/km</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO -->
+<section class="block">
+  <div class="wrap">
+    <h2>How to figure fuel cost in Australia</h2>
+    <div class="bar"></div>
+    <p>To <strong>compute gas cost</strong> (or petrol/diesel cost) for any trip in Australia, you need three numbers: trip distance in km, your vehicle's fuel consumption in L/100km, and the current fuel price per litre. Here's the simple Australian fuel cost formula:</p>
+    <div class="formula">Trip cost = (km ÷ 100) × L/100km × price per litre</div>
+    <div class="example"><b>Example:</b> Sydney to Newcastle return is ~320 km. A Hilux at 9 L/100km on diesel at $1.95/L: (320 ÷ 100) × 9 × 1.95 = <b>$56.16</b> trip cost.</div>
+
+    <h3>How to work out litres per 100 km</h3>
+    <p>L/100km is the standard fuel-consumption measure in Australia. To <strong>work out litres per 100 kilometers</strong>:</p>
+    <div class="formula">L/100km = (litres used ÷ km driven) × 100</div>
+    <div class="example"><b>Example:</b> You filled up with 42 L after driving 500 km. Consumption = (42 ÷ 500) × 100 = <b>8.4 L/100km</b>.</div>
+
+    <h3>How to work out km per litre (and calculate kilometer per liter)</h3>
+    <p>Many drivers prefer <strong>km per litre</strong>. To convert from L/100km to km/L (or work it out from a tank fill):</p>
+    <div class="formula">km/L = km driven ÷ litres used &nbsp;&nbsp;|&nbsp;&nbsp; km/L = 100 ÷ (L/100km)</div>
+    <div class="example"><b>Example:</b> 500 km on 42 L = 11.9 km/L. Or for an 8 L/100km car: 100 ÷ 8 = <b>12.5 km/L</b>.</div>
+
+    <h3>How to calculate petrol cost per km</h3>
+    <p>To <strong>work out cost of petrol per km</strong>, convert your consumption to litres-per-km and multiply by price:</p>
+    <div class="formula">Cost per km = (L/100km ÷ 100) × price per litre</div>
+    <div class="example"><b>Example:</b> 8 L/100km car at $1.95/L = (8 ÷ 100) × 1.95 = <b>$0.156 per km</b>. Over 15,000 km/year that's $2,340 in petrol.</div>
+
+    <h3>How many litres of petrol per kilometer?</h3>
+    <p>For Australian vehicles, expect roughly:</p>
+    <ul style="margin:8px 0 14px 22px;color:var(--ink)">
+      <li>Small hatchback: 0.05–0.07 L/km (5–7 L/100km)</li>
+      <li>Mid-size sedan: 0.07–0.085 L/km (7–8.5 L/100km)</li>
+      <li>SUV: 0.08–0.11 L/km (8–11 L/100km)</li>
+      <li>Diesel ute: 0.07–0.10 L/km (7–10 L/100km)</li>
+      <li>Van / light truck: 0.11–0.15 L/km (11–15 L/100km)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- VEHICLE TABLE -->
+<section class="block">
+  <div class="wrap">
+    <h2>Average fuel consumption by vehicle type (Australia)</h2>
+    <div class="bar"></div>
+    <p>Use these as starting points in the <strong>fuel consumption calculator</strong> if you don't know your exact L/100km. Real-world figures vary with driving style, load and conditions.</p>
+    <table>
+      <thead><tr><th>Vehicle class</th><th>Typical L/100km</th><th>km/L</th><th>Cost/km @ $1.95</th></tr></thead>
+      <tbody>
+        <tr><td>Small hatch (Yaris, Mazda 2)</td><td>5.5</td><td>18.2</td><td>$0.107</td></tr>
+        <tr><td>Compact SUV (CX-3, HR-V)</td><td>6.8</td><td>14.7</td><td>$0.133</td></tr>
+        <tr><td>Mid sedan (Camry hybrid)</td><td>4.7</td><td>21.3</td><td>$0.092</td></tr>
+        <tr><td>Mid sedan (Camry petrol)</td><td>7.8</td><td>12.8</td><td>$0.152</td></tr>
+        <tr><td>Mid SUV (RAV4, CX-5)</td><td>8.5</td><td>11.8</td><td>$0.166</td></tr>
+        <tr><td>Large SUV (Prado, MU-X)</td><td>10.5</td><td>9.5</td><td>$0.205</td></tr>
+        <tr><td>Diesel ute (Ranger, Hilux)</td><td>8.5</td><td>11.8</td><td>$0.166</td></tr>
+        <tr><td>Petrol ute V6</td><td>11.5</td><td>8.7</td><td>$0.224</td></tr>
+        <tr><td>Van (HiAce, Transit)</td><td>10.5</td><td>9.5</td><td>$0.205</td></tr>
+        <tr><td>Light truck</td><td>15.0</td><td>6.7</td><td>$0.293</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section class="block">
+  <div class="wrap">
+    <h2>How to reduce your fuel spend in Australia</h2>
+    <div class="bar"></div>
+    <p>Once you know your numbers from the <strong>fuel spend calculator</strong>, here's how to cut them.</p>
+    <div class="tips">
+      <div class="tip"><h4>Drive 90 vs 110 km/h</h4><p>Dropping highway speed by 20 km/h can cut fuel use 15–20%. Worth $300–500/year for the average Aussie commuter.</p></div>
+      <div class="tip"><h4>Check tyre pressure monthly</h4><p>Under-inflated tyres add 3–5% to fuel use. Inflate to the placard pressure on the door jamb.</p></div>
+      <div class="tip"><h4>Use FuelCheck-style apps</h4><p>NSW prices swing 30–50¢/L over a cycle. Filling on the cheap day saves $15–25 per tank.</p></div>
+      <div class="tip"><h4>Smooth acceleration</h4><p>Hard launches and braking burn 20–30% more fuel in city driving. Anticipate traffic.</p></div>
+      <div class="tip"><h4>Empty the boot</h4><p>Every 50 kg adds ~2% to consumption. Roof racks add 10–25% on the highway — remove when not in use.</p></div>
+      <div class="tip"><h4>Right fuel grade</h4><p>Don't pay for 98 if your car is rated for 91. Check the fuel-flap label — premium gives no benefit on lower-spec engines.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block">
+  <div class="wrap">
+    <h2>Fuel cost calculator — frequently asked questions</h2>
+    <div class="bar"></div>
+    <details><summary>How do I figure fuel cost for a trip?</summary><p>Multiply trip distance (km) by fuel consumption (L/100km), divide by 100 for litres used, then multiply by the price per litre. Our calculator above does it instantly with live NSW fuel prices.</p></details>
+    <details><summary>How to work out litres per 100km?</summary><p>L/100km = (litres used ÷ km driven) × 100. Example: 42 L over 500 km = 8.4 L/100km. Use the L/100km Calculator tab above.</p></details>
+    <details><summary>How to work out kilometres per litre?</summary><p>km/L = km driven ÷ litres used. Or convert from L/100km: km/L = 100 ÷ L/100km. So 8 L/100km = 12.5 km/L.</p></details>
+    <details><summary>How to calculate kilometer per liter from L/100km?</summary><p>Divide 100 by your L/100km figure. A car at 6 L/100km does 100 ÷ 6 = 16.7 km/L.</p></details>
+    <details><summary>How to calculate petrol cost per km?</summary><p>Cost per km = (L/100km ÷ 100) × price per litre. The Cost per KM tab calculates this automatically with live prices.</p></details>
+    <details><summary>How to work out cost of petrol per km in Australia?</summary><p>Use the formula above with current Australian fuel prices. The national average is ~$1.95/L for ULP91 and ~$2.00/L for diesel in late 2025.</p></details>
+    <details><summary>How many liters of petrol per kilometer does a normal car use?</summary><p>Typical Australian passenger cars use 0.06–0.10 L/km. Small cars sit near 0.06, sedans 0.07–0.08, and SUVs/utes 0.09–0.12 L/km.</p></details>
+    <details><summary>How to calculate fuel efficiency?</summary><p>Fill the tank, reset the trip meter, drive normally, refill, then divide litres added by km driven and multiply by 100 for L/100km. Lower = more efficient.</p></details>
+    <details><summary>How to calculate fuel average?</summary><p>Add up litres used and km driven over several tanks, then apply (total L ÷ total km) × 100. Multi-tank averages are more accurate than a single fill.</p></details>
+    <details><summary>How to work out fuel usage for a long trip?</summary><p>Use the Fuel Usage Estimator tab — enter distance and your L/100km, and it shows litres needed plus the cost.</p></details>
+    <details><summary>How to compute fuel consumption from a trip computer reading?</summary><p>Modern car trip computers usually display L/100km directly. To verify, divide tank litres by trip km and multiply by 100 — should match within ±5%.</p></details>
+    <details><summary>How to figure out fuel consumption when towing?</summary><p>Towing typically adds 30–60% to L/100km. Multiply your normal consumption by 1.4–1.6 as a starting estimate, then refine after a tank.</p></details>
+    <details><summary>Is this gas calculator Australia-specific?</summary><p>Yes — designed for Australian drivers using L/100km, km/L, AUD per litre and live NSW FuelCheck data. Works for all states.</p></details>
+    <details><summary>Are the prices in this petrol calculator Australia live?</summary><p>Yes. Prices auto-load from the NSW Government FuelCheck API every 30 minutes. You can override with a manual price for any state or station.</p></details>
+    <details><summary>Can I use this as a gas expenditure calculator for my fleet?</summary><p>Yes — for multi-vehicle fleet calculations with savings projections, try our dedicated <a href="/fleet-fuel-cost-calculator/">Fleet Fuel Cost Calculator</a>.</p></details>
+  </div>
+</section>
+
+<!-- RELATED -->
+<section class="block">
+  <div class="wrap">
+    <h2>Related Australian fuel tools</h2>
+    <div class="bar"></div>
+    <div class="related">
+      <a href="/fleet-fuel-cost-calculator/">Fleet Fuel Cost Calculator <span>Multi-vehicle weekly, monthly & annual fuel spend with savings projections.</span></a>
+      <a href="/fuel-finder.html">Live Fuel Price Finder <span>Find cheapest petrol & diesel near you using NSW FuelCheck.</span></a>
+      <a href="/">Live NSW Fuel Prices <span>Real-time petrol, diesel, ULP95, ULP98, E10 & LPG averages.</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Fuel cost calculator Australia — petrol calculator, gas calculator australia, fuel consumption calculator and gas price calculator in one tool. Live data from NSW Government FuelCheck (api.nsw.gov.au). Updated every 30 minutes. AUD prices in cents/litre.</p>
+    <p>&copy; <span id="yr"></span> Fleet Mate. Built for Australian drivers and fleet managers.</p>
+  </div>
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://sahuloieqmiyapdcvuzi.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhaHVsb2llcW1peWFwZGN2dXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDY0OTAsImV4cCI6MjA5MDUyMjQ5MH0.7BXg2Pm2m1l2w8m6BMBoJkSIakMLi7fxDjjgUKR6jJ4';
+
+const FUEL_MAP = {E10:'e10',U91:'ulp91',P95:'ulp95',P98:'ulp98',DL:'diesel',PDL:'premiumDiesel',LPG:'lpg'};
+const FALLBACK = {ulp91:189.5,e10:186.0,ulp95:201.5,ulp98:213.0,diesel:198.0,premiumDiesel:212.0,lpg:99.5};
+let prices = {...FALLBACK};
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Tabs
+document.querySelectorAll('.tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Presets
+document.querySelectorAll('#t-presets button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('#t-presets button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.getElementById('t-consumption').value = b.dataset.c;
+    calcTrip();
+  });
+});
+
+// Format helpers
+const fmt$ = n => isFinite(n) ? '$'+n.toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2}) : '$0.00';
+const fmtL = n => isFinite(n) ? n.toLocaleString('en-AU',{minimumFractionDigits:1,maximumFractionDigits:1})+' L' : '0 L';
+const fmtKm = n => isFinite(n) ? Math.round(n).toLocaleString('en-AU')+' km' : '0 km';
+
+// Trip Cost
+function calcTrip(){
+  let d = parseFloat(document.getElementById('t-distance').value)||0;
+  if(document.getElementById('t-return').checked) d *= 2;
+  const c = parseFloat(document.getElementById('t-consumption').value)||0;
+  const p = (parseFloat(document.getElementById('t-price').value)||0)/100;
+  const litres = (d/100)*c;
+  const cost = litres*p;
+  const cpk = d>0 ? cost/d : 0;
+  document.getElementById('o-trip-cost').textContent = fmt$(cost);
+  document.getElementById('o-trip-litres').textContent = fmtL(litres);
+  document.getElementById('o-trip-cpk').textContent = fmt$(cpk).replace('$','$')+'/km';
+  document.getElementById('o-trip-day').textContent = fmt$(cost);
+  document.getElementById('o-trip-week').textContent = fmt$(cost*5);
+  document.getElementById('o-trip-year').textContent = fmt$(cost*260);
+}
+['t-distance','t-consumption','t-price','t-return'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',calcTrip);
+  document.getElementById(id).addEventListener('change',calcTrip);
+});
+document.getElementById('t-fueltype').addEventListener('change',e=>{
+  const k = e.target.value;
+  if(prices[k]) document.getElementById('t-price').value = prices[k].toFixed(1);
+  calcTrip();
+});
+
+// L/100km
+function calcCons(){
+  const L = parseFloat(document.getElementById('c-litres').value)||0;
+  const km = parseFloat(document.getElementById('c-km').value)||0;
+  const l100 = km>0 ? (L/km)*100 : 0;
+  const kml = L>0 ? km/L : 0;
+  const lpk = km>0 ? L/km : 0;
+  let rate = '—';
+  if(l100>0 && l100<6) rate='Excellent ✓';
+  else if(l100<8) rate='Good';
+  else if(l100<10) rate='Average';
+  else if(l100<13) rate='High';
+  else if(l100>=13) rate='Very high';
+  document.getElementById('o-c-l100').textContent = l100.toFixed(1)+' L/100km';
+  document.getElementById('o-c-kml').textContent = kml.toFixed(1)+' km/L';
+  document.getElementById('o-c-lpk').textContent = lpk.toFixed(3)+' L/km';
+  document.getElementById('o-c-rate').textContent = rate;
+}
+['c-litres','c-km'].forEach(id=>document.getElementById(id).addEventListener('input',calcCons));
+
+// km/L converter
+let kSync=false;
+function calcK(from){
+  if(kSync) return; kSync=true;
+  const l100 = parseFloat(document.getElementById('k-l100').value)||0;
+  const kml  = parseFloat(document.getElementById('k-kml').value)||0;
+  const tank = parseFloat(document.getElementById('k-tank').value)||0;
+  if(from==='l100' && l100>0){
+    const v = 100/l100;
+    document.getElementById('k-kml').value = v.toFixed(2);
+  } else if(from==='kml' && kml>0){
+    const v = 100/kml;
+    document.getElementById('k-l100').value = v.toFixed(2);
+  }
+  const final_l100 = parseFloat(document.getElementById('k-l100').value)||0;
+  const final_kml  = parseFloat(document.getElementById('k-kml').value)||0;
+  document.getElementById('o-k-range').textContent = fmtKm(final_kml*tank);
+  // MPG conversions: L/100km -> mpg
+  const mpgUS = final_l100>0 ? 235.215/final_l100 : 0;
+  const mpgUK = final_l100>0 ? 282.481/final_l100 : 0;
+  document.getElementById('o-k-mpgus').textContent = mpgUS.toFixed(1)+' mpg';
+  document.getElementById('o-k-mpguk').textContent = mpgUK.toFixed(1)+' mpg';
+  kSync=false;
+}
+document.getElementById('k-l100').addEventListener('input',()=>calcK('l100'));
+document.getElementById('k-kml').addEventListener('input',()=>calcK('kml'));
+document.getElementById('k-tank').addEventListener('input',()=>calcK('tank'));
+
+// Cost per km
+function calcCPK(){
+  const c = parseFloat(document.getElementById('cpk-cons').value)||0;
+  const p = (parseFloat(document.getElementById('cpk-price').value)||0)/100;
+  const annual = parseFloat(document.getElementById('cpk-annual').value)||0;
+  const cpk = (c/100)*p;
+  document.getElementById('o-cpk').textContent = '$'+cpk.toFixed(3)+'/km';
+  document.getElementById('o-cpk100').textContent = fmt$(cpk*100);
+  document.getElementById('o-cpk-year').textContent = fmt$(cpk*annual);
+  document.getElementById('o-cpk-month').textContent = fmt$(cpk*annual/12);
+}
+['cpk-cons','cpk-price','cpk-annual'].forEach(id=>document.getElementById(id).addEventListener('input',calcCPK));
+document.getElementById('cpk-fueltype').addEventListener('change',e=>{
+  const k = e.target.value;
+  if(prices[k]) document.getElementById('cpk-price').value = prices[k].toFixed(1);
+  calcCPK();
+});
+
+// Estimator
+function calcEst(){
+  const d = parseFloat(document.getElementById('e-distance').value)||0;
+  const c = parseFloat(document.getElementById('e-cons').value)||0;
+  const p = (parseFloat(document.getElementById('e-price').value)||0)/100;
+  const pax = Math.max(1,parseInt(document.getElementById('e-pax').value)||1);
+  const L = (d/100)*c;
+  const cost = L*p;
+  document.getElementById('o-e-litres').textContent = fmtL(L);
+  document.getElementById('o-e-cost').textContent = fmt$(cost);
+  document.getElementById('o-e-pax').textContent = fmt$(cost/pax);
+  document.getElementById('o-e-cpk').textContent = '$'+(d>0 ? (cost/d).toFixed(3) : '0.000')+'/km';
+}
+['e-distance','e-cons','e-price','e-pax'].forEach(id=>document.getElementById(id).addEventListener('input',calcEst));
+document.getElementById('e-fueltype').addEventListener('change',e=>{
+  const k = e.target.value;
+  if(prices[k]) document.getElementById('e-price').value = prices[k].toFixed(1);
+  calcEst();
+});
+
+// Live NSW prices
+async function loadPrices(){
+  try{
+    const res = await fetch(`${SUPABASE_URL}/functions/v1/fuel-prices`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON,'Authorization':'Bearer '+SUPABASE_ANON},
+      body:'{}'
+    });
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    if(data?.prices && Array.isArray(data.prices)){
+      const totals = {};
+      data.prices.forEach(p=>{
+        const k = FUEL_MAP[p.fueltype];
+        if(k){
+          totals[k] = totals[k] || {s:0,c:0};
+          totals[k].s += p.price; totals[k].c += 1;
+        }
+      });
+      Object.entries(totals).forEach(([k,{s,c}])=>{ if(c>0) prices[k] = +(s/c).toFixed(1); });
+      const status = document.getElementById('t-status');
+      status.textContent = '✓ Live NSW prices loaded — diesel '+prices.diesel.toFixed(1)+'¢/L, ULP91 '+prices.ulp91.toFixed(1)+'¢/L. Updated '+new Date().toLocaleTimeString('en-AU');
+      status.classList.add('live');
+      // Update default fuel type prices
+      document.getElementById('t-price').value = prices[document.getElementById('t-fueltype').value].toFixed(1);
+      document.getElementById('cpk-price').value = prices[document.getElementById('cpk-fueltype').value].toFixed(1);
+      document.getElementById('e-price').value = prices[document.getElementById('e-fueltype').value].toFixed(1);
+      calcTrip(); calcCPK(); calcEst();
+    }
+  }catch(err){
+    console.warn('Live prices unavailable, using fallback:', err.message);
+    document.getElementById('t-status').textContent = 'Using cached fuel prices (live feed unavailable).';
+  }
+}
+
+// Initial calculations
+calcTrip(); calcCons(); calcK('l100'); calcCPK(); calcEst();
+loadPrices();
+setInterval(loadPrices, 30*60*1000);
+</script>
+</body>
+</html>
