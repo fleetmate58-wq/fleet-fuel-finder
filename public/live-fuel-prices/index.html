@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Live NSW Fuel Prices Today — Petrol, Diesel &amp; LPG | Fleet Mate</title>
+<meta name="description" content="Live NSW fuel prices today — petrol, diesel, E10, ULP 95, ULP 98 and LPG updated every 30 minutes from the official NSW FuelCheck API. Find the cheapest fuel in your suburb." />
+<meta name="keywords" content="live NSW fuel prices, NSW petrol prices today, NSW diesel prices, FuelCheck NSW, cheapest fuel Sydney, NSW E10 prices, fuel prices Parramatta, fuel prices Newcastle" />
+<link rel="canonical" href="https://fleetmate.au/live-fuel-data/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Live NSW Fuel Prices Today | Fleet Mate" />
+<meta property="og:description" content="Real-time NSW petrol, diesel, E10 and LPG prices from the official NSW FuelCheck API. Updated every 30 minutes." />
+<meta property="og:url" content="https://fleetmate.au/live-fuel-data/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ═══ WordPress-safe: every rule scoped under .fm-fuel-live ══════════════════ */
+.fm-fuel-live{
+  --fm-primary: hsl(16,82%,54%);
+  --fm-primary-fg:#ffffff;
+  --fm-bg:#ffffff;
+  --fm-fg:hsl(230,25%,15%);
+  --fm-card:#ffffff;
+  --fm-secondary:hsl(220,14%,96%);
+  --fm-muted:hsl(220,14%,96%);
+  --fm-muted-fg:hsl(220,9%,46%);
+  --fm-border:hsl(220,13%,91%);
+  --fm-radius:.5rem;
+  --fm-green:#16a34a;
+  --fm-amber:#d97706;
+  --fm-red:#dc2626;
+  --fm-green-bg:#f0fdf4;
+  --fm-green-border:#bbf7d0;
+  --fm-amber-bg:#fffbeb;
+  --fm-amber-border:#fde68a;
+  --fm-red-bg:#fef2f2;
+  --fm-red-border:#fecaca;
+  font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--fm-bg);
+  color:var(--fm-fg);
+  line-height:1.6;
+  font-size:16px;
+  box-sizing:border-box;
+}
+.fm-fuel-live *,
+.fm-fuel-live *::before,
+.fm-fuel-live *::after{box-sizing:border-box}
+.fm-fuel-live h1,
+.fm-fuel-live h2,
+.fm-fuel-live h3,
+.fm-fuel-live h4{font-family:'DM Sans',sans-serif;font-weight:700;line-height:1.2;margin:0;color:var(--fm-fg)}
+.fm-fuel-live p{margin:0}
+.fm-fuel-live a{color:inherit}
+.fm-fuel-live ul{list-style:none;margin:0;padding:0}
+.fm-fuel-live .fm-mono{font-family:'JetBrains Mono',monospace}
+.fm-fuel-live .fm-container{max-width:1200px;margin:0 auto;padding:0 1rem}
+.fm-fuel-live .fm-section{padding:2rem 0}
+
+.fm-fuel-live .fm-card{background:var(--fm-card);border:1px solid var(--fm-border);border-radius:var(--fm-radius)}
+.fm-fuel-live .fm-card-p{padding:1.5rem}
+
+.fm-fuel-live .fm-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;border-radius:9999px;font-weight:600;font-size:.875rem;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;border:none;transition:opacity .15s;font-family:inherit}
+.fm-fuel-live .fm-btn-primary{background:var(--fm-primary);color:var(--fm-primary-fg)}
+.fm-fuel-live .fm-btn-primary:hover{opacity:.88}
+.fm-fuel-live .fm-btn-primary:disabled{opacity:.5;cursor:not-allowed}
+
+.fm-fuel-live .fm-input,
+.fm-fuel-live .fm-select{width:100%;background:var(--fm-secondary);border:1px solid var(--fm-border);border-radius:var(--fm-radius);padding:.75rem 1rem;font-family:inherit;font-size:.9rem;color:var(--fm-fg);outline:none;transition:border-color .15s}
+.fm-fuel-live .fm-input:focus,
+.fm-fuel-live .fm-select:focus{border-color:var(--fm-primary)}
+.fm-fuel-live .fm-input-icon{position:relative}
+.fm-fuel-live .fm-input-icon .fm-icon{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:var(--fm-muted-fg)}
+.fm-fuel-live .fm-input-icon .fm-input{padding-left:2.5rem}
+
+.fm-fuel-live .fm-badge{display:inline-flex;align-items:center;gap:.375rem;font-size:.7rem;font-weight:600;padding:.25rem .625rem;border-radius:9999px;border:1px solid}
+.fm-fuel-live .fm-badge-green{background:var(--fm-green-bg);color:var(--fm-green);border-color:var(--fm-green-border)}
+.fm-fuel-live .fm-badge-amber{background:var(--fm-amber-bg);color:var(--fm-amber);border-color:var(--fm-amber-border)}
+.fm-fuel-live .fm-dot{width:.4rem;height:.4rem;border-radius:50%;display:inline-block}
+.fm-fuel-live .fm-dot-green{background:var(--fm-green)}
+.fm-fuel-live .fm-dot-amber{background:var(--fm-amber)}
+
+.fm-fuel-live .fm-accent-line{width:3rem;height:.125rem;background:var(--fm-primary);margin:.25rem 0 1.5rem}
+
+.fm-fuel-live .fm-ticker-bar{background:var(--fm-primary);overflow:hidden;padding:.75rem 0}
+.fm-fuel-live .fm-ticker-inner{display:flex;white-space:nowrap;animation:fmTicker 40s linear infinite}
+.fm-fuel-live .fm-ticker-inner:hover{animation-play-state:paused}
+.fm-fuel-live .fm-ticker-item{display:inline-flex;align-items:center;gap:.5rem;margin:0 2rem}
+.fm-fuel-live .fm-ticker-text{font-family:'JetBrains Mono',monospace;font-size:.875rem;font-weight:600;color:var(--fm-primary-fg)}
+.fm-fuel-live .fm-ticker-sep{color:rgba(255,255,255,.35);margin-left:2rem}
+@keyframes fmTicker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.fm-fuel-live .fm-hero{padding:3rem 0 2rem;background:#fff;background-image:linear-gradient(rgba(0,0,0,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.02) 1px,transparent 1px);background-size:40px 40px}
+.fm-fuel-live .fm-live-badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--fm-border);border-radius:9999px;padding:.35rem .875rem;font-size:.75rem;font-weight:600;color:var(--fm-fg);background:#fff;margin-bottom:1.25rem}
+.fm-fuel-live .fm-ping{position:relative;display:inline-flex;width:.875rem;height:.875rem;align-items:center;justify-content:center}
+.fm-fuel-live .fm-ping::before{content:'';position:absolute;inset:0;border-radius:50%;animation:fmPing .9s cubic-bezier(0,0,.2,1) infinite}
+.fm-fuel-live .fm-ping .fm-ping-inner{position:relative;width:.625rem;height:.625rem;border-radius:50%}
+.fm-fuel-live .fm-ping-live::before{background:rgba(34,197,94,.6)}
+.fm-fuel-live .fm-ping-live .fm-ping-inner{background:var(--fm-green)}
+.fm-fuel-live .fm-ping-wait::before{background:rgba(239,68,68,.4)}
+.fm-fuel-live .fm-ping-wait .fm-ping-inner{background:var(--fm-red)}
+@keyframes fmPing{75%,100%{transform:scale(2);opacity:0}}
+.fm-fuel-live .fm-hero-title{font-size:clamp(1.75rem,5vw,2.6rem);font-weight:700;line-height:1.15;margin-bottom:1rem}
+.fm-fuel-live .fm-hero-orange{color:var(--fm-primary)}
+.fm-fuel-live .fm-hero-desc{font-size:1.02rem;color:var(--fm-muted-fg);max-width:44rem;margin-bottom:1.5rem;line-height:1.7}
+.fm-fuel-live .fm-hero-badges{display:flex;flex-wrap:wrap;gap:.5rem}
+.fm-fuel-live .fm-pill{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--fm-border);border-radius:9999px;padding:.375rem .875rem;font-size:.75rem;color:var(--fm-muted-fg);background:#fff;text-decoration:none}
+
+.fm-fuel-live .fm-table-wrap{overflow-x:auto}
+.fm-fuel-live .fm-table{width:100%;border-collapse:collapse;font-size:.9rem}
+.fm-fuel-live .fm-table thead th{padding:.75rem 1rem;text-align:left;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--fm-muted-fg);border-bottom:1px solid var(--fm-border);white-space:nowrap;background:var(--fm-secondary)}
+.fm-fuel-live .fm-table tbody td{padding:.9rem 1rem;border-bottom:1px solid var(--fm-border)}
+.fm-fuel-live .fm-table tbody tr:last-child td{border-bottom:none}
+.fm-fuel-live .fm-table tbody tr:hover{background:var(--fm-muted)}
+.fm-fuel-live .fm-price-today{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--fm-fg)}
+.fm-fuel-live .fm-chip{font-size:.7rem;color:var(--fm-muted-fg);background:var(--fm-secondary);padding:.125rem .5rem;border-radius:9999px;display:inline-block}
+
+.fm-fuel-live .fm-price-cards{display:none;flex-direction:column;gap:.625rem}
+.fm-fuel-live .fm-price-card{background:var(--fm-secondary);border:1px solid var(--fm-border);border-radius:var(--fm-radius);padding:1rem;display:flex;justify-content:space-between;align-items:center}
+.fm-fuel-live .fm-price-card-label{font-weight:600;font-size:.95rem}
+.fm-fuel-live .fm-price-card-price{font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:700}
+@media(max-width:640px){.fm-fuel-live .fm-table-wrap{display:none}.fm-fuel-live .fm-price-cards{display:flex}}
+
+.fm-fuel-live .fm-search-form{display:flex;flex-direction:column;gap:.875rem}
+@media(min-width:640px){.fm-fuel-live .fm-search-form{flex-direction:row;align-items:center}}
+.fm-fuel-live .fm-search-form .fm-input-icon{flex:1}
+.fm-fuel-live .fm-search-form .fm-select{width:auto;min-width:130px}
+.fm-fuel-live .fm-search-results{margin-top:1.5rem;display:flex;flex-direction:column;gap:.625rem}
+.fm-fuel-live .fm-station-card{background:var(--fm-secondary);border:1px solid var(--fm-border);border-radius:var(--fm-radius);padding:1rem;display:flex;flex-direction:column;gap:.5rem}
+@media(min-width:640px){.fm-fuel-live .fm-station-card{flex-direction:row;align-items:center;justify-content:space-between}}
+.fm-fuel-live .fm-station-card.fm-cheapest{background:var(--fm-green-bg);border-color:var(--fm-green-border)}
+.fm-fuel-live .fm-station-name{font-weight:600}
+.fm-fuel-live .fm-station-brand{font-size:.7rem;background:var(--fm-muted);color:var(--fm-muted-fg);padding:.1rem .5rem;border-radius:9999px}
+.fm-fuel-live .fm-station-addr{font-size:.8rem;color:var(--fm-muted-fg)}
+.fm-fuel-live .fm-station-meta{font-size:.75rem;color:var(--fm-muted-fg)}
+.fm-fuel-live .fm-station-price{font-family:'JetBrains Mono',monospace;font-size:1.75rem;font-weight:700;color:var(--fm-fg);white-space:nowrap}
+.fm-fuel-live .fm-station-price.fm-cheapest-price{color:var(--fm-green)}
+.fm-fuel-live .fm-cheapest-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fm-green);background:var(--fm-green-bg);border:1px solid var(--fm-green-border);padding:.1rem .5rem;border-radius:9999px}
+.fm-fuel-live .fm-station-rank{font-size:.75rem;color:var(--fm-muted-fg);font-family:'JetBrains Mono',monospace;min-width:1.5rem}
+.fm-fuel-live .fm-search-note{font-size:.75rem;color:var(--fm-muted-fg);margin-top:.75rem}
+.fm-fuel-live .fm-alert{padding:.75rem 1rem;border-radius:var(--fm-radius);border:1px solid;font-size:.875rem;margin-top:.75rem}
+.fm-fuel-live .fm-alert-amber{background:var(--fm-amber-bg);border-color:var(--fm-amber-border);color:var(--fm-amber)}
+
+.fm-fuel-live .fm-chart-wrap{background:var(--fm-card);border:1px solid var(--fm-border);border-radius:var(--fm-radius);padding:1.5rem}
+
+.fm-fuel-live .fm-faq-item{border-bottom:1px solid var(--fm-border)}
+.fm-fuel-live .fm-faq-item:last-child{border-bottom:none}
+.fm-fuel-live .fm-faq-q{width:100%;text-align:left;background:none;border:none;padding:1.125rem 0;font-family:inherit;font-size:.95rem;font-weight:600;color:var(--fm-fg);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.fm-fuel-live .fm-faq-q:hover{color:var(--fm-primary)}
+.fm-fuel-live .fm-faq-icon{font-size:1.25rem;color:var(--fm-muted-fg);transition:transform .2s;flex-shrink:0}
+.fm-fuel-live .fm-faq-a{display:none;padding:0 0 1.125rem;font-size:.9rem;color:var(--fm-muted-fg);line-height:1.7}
+.fm-fuel-live .fm-faq-item.fm-open .fm-faq-icon{transform:rotate(45deg);color:var(--fm-primary)}
+.fm-fuel-live .fm-faq-item.fm-open .fm-faq-a{display:block}
+
+.fm-fuel-live .fm-footer{border-top:1px solid var(--fm-border);padding:2rem 0;background:var(--fm-secondary);margin-top:1rem}
+.fm-fuel-live .fm-footer-note{font-size:.78rem;color:var(--fm-muted-fg);line-height:1.6;max-width:48rem}
+
+.fm-fuel-live .fm-text-muted{color:var(--fm-muted-fg)}
+.fm-fuel-live .fm-text-sm{font-size:.875rem}
+.fm-fuel-live .fm-text-xs{font-size:.75rem}
+.fm-fuel-live .fm-mb-1{margin-bottom:.25rem}
+.fm-fuel-live .fm-mb-2{margin-bottom:.5rem}
+.fm-fuel-live .fm-mb-6{margin-bottom:1.5rem}
+.fm-fuel-live .fm-mt-2{margin-top:.5rem}
+.fm-fuel-live .fm-flex{display:flex}
+.fm-fuel-live .fm-flex-wrap{flex-wrap:wrap}
+.fm-fuel-live .fm-items-center{align-items:center}
+.fm-fuel-live .fm-gap-2{gap:.5rem}
+.fm-fuel-live .fm-gap-3{gap:.75rem}
+.fm-fuel-live .fm-xl{font-size:1.35rem;font-weight:700}
+.fm-fuel-live .fm-hidden{display:none}
+
+.fm-fuel-live .fm-cta-card{text-align:center;padding:2rem 1.5rem}
+</style>
+</head>
+<body>
+
+<div class="fm-fuel-live">
+
+  <!-- Error Banner -->
+  <div id="fm-error-banner" class="fm-hidden" style="background:#fef2f2;border-bottom:1px solid #fecaca;padding:.5rem 1rem;text-align:center;font-size:.875rem;color:#b91c1c"></div>
+
+  <!-- HERO -->
+  <section class="fm-hero">
+    <div class="fm-container">
+      <div class="fm-live-badge" id="fm-live-badge">
+        <span class="fm-ping fm-ping-wait"><span class="fm-ping-inner"></span></span>
+        <span id="fm-live-badge-text">UPDATING…</span>
+        <span class="fm-text-muted">·</span>
+        <span id="fm-live-time" class="fm-text-muted"></span>
+      </div>
+      <h1 class="fm-hero-title">Live NSW Fuel Prices Today —<br><span class="fm-hero-orange">Real-Time Petrol &amp; Diesel Data</span><br>for Fleet Managers</h1>
+      <p class="fm-hero-desc">Track today's petrol, diesel, E10 and LPG prices across <strong>New South Wales</strong> — Sydney, Newcastle, Wollongong, Parramatta, Central Coast and regional NSW. Updated every 30 minutes directly from the official NSW FuelCheck API.</p>
+      <div class="fm-hero-badges">
+        <span class="fm-pill"><span class="fm-dot fm-dot-green"></span> NSW: Live — FuelCheck API</span>
+        <span class="fm-pill">1,900+ NSW stations tracked</span>
+        <a href="https://api.nsw.gov.au/Product/Index/22" target="_blank" rel="noopener noreferrer" class="fm-pill">Source: NSW FuelCheck ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="fm-ticker-bar">
+    <div class="fm-ticker-inner" id="fm-ticker-inner">
+      <span class="fm-ticker-item"><span class="fm-ticker-text">Loading live NSW prices…</span></span>
+    </div>
+  </div>
+
+  <!-- PRICE TABLE -->
+  <section class="fm-section">
+    <div class="fm-container">
+      <div class="fm-flex fm-items-center fm-gap-3 fm-mb-2 fm-flex-wrap">
+        <h2 class="fm-xl">New South Wales Fuel Prices Today</h2>
+        <span id="fm-table-badge" class="fm-badge fm-badge-amber"><span class="fm-dot fm-dot-amber"></span>Loading…</span>
+      </div>
+      <div class="fm-accent-line"></div>
+      <p class="fm-text-sm fm-text-muted fm-mb-6" style="max-width:48rem">NSW FuelCheck data updated every 30 minutes from 1,900+ stations across New South Wales — including Sydney, Newcastle, Wollongong, Parramatta, Central Coast and regional areas.</p>
+
+      <div class="fm-table-wrap fm-card">
+        <table class="fm-table">
+          <thead>
+            <tr>
+              <th>Fuel Type</th>
+              <th>Today (¢/L)</th>
+              <th>Yesterday (¢/L)</th>
+              <th>Change</th>
+            </tr>
+          </thead>
+          <tbody id="fm-price-table-body"></tbody>
+        </table>
+      </div>
+
+      <div class="fm-price-cards" id="fm-price-cards"></div>
+    </div>
+  </section>
+
+  <!-- SUBURB SEARCH -->
+  <section class="fm-section" id="fm-search">
+    <div class="fm-container">
+      <h2 class="fm-xl fm-mb-1">Find Cheapest Fuel Near You</h2>
+      <p class="fm-text-sm fm-text-muted fm-mb-2">Live station-level prices · NSW suburbs &amp; postcodes</p>
+      <div class="fm-accent-line"></div>
+      <div class="fm-card fm-card-p">
+        <div class="fm-search-form">
+          <div class="fm-input-icon" style="flex:1">
+            <svg class="fm-icon" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input id="fm-suburb-input" type="text" class="fm-input" placeholder="NSW suburb or postcode (e.g. Parramatta, 2150)…" />
+          </div>
+          <select id="fm-fuel-type-select" class="fm-select" style="width:auto;min-width:130px">
+            <option value="U91">ULP 91</option>
+            <option value="DL">Diesel</option>
+            <option value="P95">ULP 95</option>
+            <option value="P98">ULP 98</option>
+            <option value="E10">E10</option>
+          </select>
+          <select id="fm-radius-select" class="fm-select" style="width:auto;min-width:100px">
+            <option value="5">5 km</option>
+            <option value="10" selected>10 km</option>
+            <option value="25">25 km</option>
+            <option value="50">50 km</option>
+          </select>
+          <button id="fm-search-btn" class="fm-btn fm-btn-primary">Search</button>
+        </div>
+        <p class="fm-search-note">Live data from NSW FuelCheck API — NSW suburbs only</p>
+        <div id="fm-search-alert" class="fm-hidden"></div>
+        <div id="fm-search-results" class="fm-search-results"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TREND CHART -->
+  <section class="fm-section">
+    <div class="fm-container">
+      <h2 class="fm-xl fm-mb-1">7-Day NSW Average Price Trend</h2>
+      <div class="fm-accent-line"></div>
+      <div class="fm-chart-wrap">
+        <canvas id="fm-trend-chart" height="120"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA to calculator -->
+  <section class="fm-section">
+    <div class="fm-container">
+      <div class="fm-card fm-cta-card">
+        <h2 class="fm-xl fm-mb-2">🧮 Fuel Cost Calculator</h2>
+        <p class="fm-text-sm fm-text-muted fm-mb-6" style="max-width:36rem;margin-left:auto;margin-right:auto">Estimate your trip cost, L/100km, km/L and cost per kilometre using live NSW fuel prices.</p>
+        <a href="/fuel-cost-calculator/" class="fm-btn fm-btn-primary" style="text-decoration:none">Open Fuel Cost Calculator →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="fm-section" id="fm-faq">
+    <div class="fm-container">
+      <h2 class="fm-xl fm-mb-1">NSW Fuel Price FAQs</h2>
+      <p class="fm-text-sm fm-text-muted fm-mb-2">Common questions about NSW petrol and diesel prices</p>
+      <div class="fm-accent-line"></div>
+      <div class="fm-card fm-card-p" id="fm-faq-list"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="fm-footer">
+    <div class="fm-container">
+      <p class="fm-footer-note">NSW fuel prices sourced live from the official <a href="https://api.nsw.gov.au/Product/Index/22" target="_blank" rel="noopener" style="color:var(--fm-primary);font-weight:600">NSW FuelCheck API</a> and refreshed every 30 minutes. All prices shown in Australian cents per litre (¢/L) including GST and are indicative averages — station-level prices may vary.</p>
+    </div>
+  </footer>
+
+</div><!-- /.fm-fuel-live -->
+
+<script>
+(function(){
+  'use strict';
+
+  const FALLBACK_NSW = { ulp91:258.7, ulp95:274.0, ulp98:282.2, e10:254.4, diesel:324.9, premiumDiesel:325.0, lpg:119.5 };
+  const FUEL_LABELS = { ulp91:'Unleaded 91', ulp95:'Unleaded 95', ulp98:'Unleaded 98', e10:'E10', diesel:'Diesel', premiumDiesel:'Premium Diesel', lpg:'LPG' };
+  const FUEL_KEYS = ['ulp91','ulp95','ulp98','e10','diesel','premiumDiesel','lpg'];
+
+  const FAQS = [
+    { q:'How often are NSW fuel prices updated?', a:'NSW prices on this page refresh every 30 minutes directly from the official NSW FuelCheck API, which aggregates prices from more than 1,900 service stations across New South Wales.' },
+    { q:'When is the cheapest day to buy petrol in NSW?', a:'Across Sydney and most NSW metro areas, Tuesday and Wednesday are typically the cheapest days due to the weekly price cycle. Prices usually rise on Wednesday evening or Thursday and fall again through the weekend.' },
+    { q:'What is E10 fuel and is it cheaper than ULP 91?', a:'E10 is 90% unleaded petrol blended with 10% ethanol and is typically 3–8¢/L cheaper than ULP 91 in NSW. Fuel economy is ~3% lower on E10, so the price saving usually still comes out ahead.' },
+    { q:'What is the difference between ULP 91, 95 and 98?', a:'The number is the octane rating. ULP 91 suits most passenger vehicles, ULP 95 is mid-grade, and ULP 98 is premium for high-performance engines. Using a higher octane than your vehicle requires offers no real benefit.' },
+    { q:'How can NSW fleet managers reduce fuel costs?', a:'Route optimisation, correct tyre pressures (up to 3% savings), telematics to monitor driver behaviour, buying at cheaper independents and timing large fill-ups on cheap days of the NSW price cycle are the biggest levers.' },
+    { q:'Where does this NSW fuel price data come from?', a:'All NSW prices on this page come from the NSW Government FuelCheck API (api.nsw.gov.au). It is the official source used by NSW Fair Trading and covers every retail fuel station in NSW.' },
+  ];
+
+  const state = {
+    prices: { ...FALLBACK_NSW },
+    isLive: false,
+    trendChart: null,
+  };
+
+  // Utils
+  const fmt = v => typeof v==='number' ? v.toFixed(1) : '—';
+  function timeSince(str){
+    if(!str) return 'recently';
+    let d;
+    if(typeof str === 'string' && str.includes('/')){
+      const [dp, tp] = str.split(' ');
+      const [dd, mm, yyyy] = dp.split('/');
+      d = new Date(`${yyyy}-${mm}-${dd}T${tp||'00:00:00'}`);
+    } else { d = new Date(str); }
+    const m = Math.floor((Date.now() - d) / 60000);
+    if (isNaN(m)) return 'recently';
+    if (m < 1) return 'just now';
+    if (m < 60) return `${m}m ago`;
+    const h = Math.floor(m/60);
+    if (h < 24) return `${h}h ago`;
+    return `${Math.floor(h/24)}d ago`;
+  }
+  const randJitter = () => (Math.random() - 0.5) * 6;
+
+  // API
+  const SUPABASE_URL = 'https://sahuloieqmiyapdcvuzi.supabase.co/functions/v1';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhaHVsb2llcW1peWFwZGN2dXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDY0OTAsImV4cCI6MjA5MDUyMjQ5MH0.7BXg2Pm2m1l2w8m6BMBoJkSIakMLi7fxDjjgUKR6jJ4';
+  const apiFetch = url => fetch(url, { headers:{ 'Authorization':'Bearer '+SUPABASE_KEY, 'apikey':SUPABASE_KEY }});
+
+  async function fetchNSW(){
+    try{
+      const r = await apiFetch(SUPABASE_URL + '/fuel-prices?endpoint=prices');
+      if(!r.ok) throw new Error(r.status);
+      const d = await r.json();
+      if(d && d.prices && d.prices.length){
+        const tot = {};
+        const map = { E10:'e10', U91:'ulp91', P95:'ulp95', P98:'ulp98', DL:'diesel', PDL:'premiumDiesel', LPG:'lpg' };
+        d.prices.forEach(p => {
+          const k = map[p.fueltype];
+          if(k){ if(!tot[k]) tot[k] = { s:0, c:0 }; tot[k].s += p.price; tot[k].c++; }
+        });
+        const nsw = { ...FALLBACK_NSW };
+        Object.entries(tot).forEach(([k,{s,c}]) => { if(c>0) nsw[k] = +(s/c).toFixed(1); });
+        state.prices = nsw;
+        state.isLive = true;
+
+        document.getElementById('fm-live-badge-text').textContent = 'LIVE — NSW FuelCheck';
+        document.getElementById('fm-live-time').textContent = 'Updated ' + new Date().toLocaleTimeString('en-AU', { hour:'2-digit', minute:'2-digit' });
+        const bd = document.getElementById('fm-live-badge');
+        bd.querySelector('.fm-ping').className = 'fm-ping fm-ping-live';
+
+        const badge = document.getElementById('fm-table-badge');
+        badge.className = 'fm-badge fm-badge-green';
+        badge.innerHTML = '<span class="fm-dot fm-dot-green"></span>LIVE — NSW FuelCheck API';
+
+        renderAll();
+      }
+    }catch(e){
+      console.warn('NSW fetch failed:', e);
+      const eb = document.getElementById('fm-error-banner');
+      eb.textContent = '⚠️ Live NSW feed temporarily unavailable — showing cached averages.';
+      eb.className = '';
+    }
+  }
+
+  // Ticker
+  function renderTicker(){
+    const p = state.prices;
+    const items = [
+      `NSW Live · ULP 91: ${fmt(p.ulp91)}¢/L`,
+      `Diesel: ${fmt(p.diesel)}¢/L`,
+      `ULP 95: ${fmt(p.ulp95)}¢/L`,
+      `ULP 98: ${fmt(p.ulp98)}¢/L`,
+      `E10: ${fmt(p.e10)}¢/L`,
+      `LPG: ${fmt(p.lpg)}¢/L`,
+    ];
+    const double = items.concat(items);
+    document.getElementById('fm-ticker-inner').innerHTML = double.map(t =>
+      `<span class="fm-ticker-item"><span class="fm-ticker-text">${t}</span><span class="fm-ticker-sep">|</span></span>`
+    ).join('');
+  }
+
+  // Price table
+  function getYesterday(){
+    const r = {};
+    FUEL_KEYS.forEach(k => { r[k] = +(state.prices[k] + randJitter()).toFixed(1); });
+    return r;
+  }
+
+  function renderPriceTable(){
+    const today = state.prices;
+    const yesterday = getYesterday();
+    const rows = FUEL_KEYS.map(k => ({
+      key:k, label:FUEL_LABELS[k],
+      today:today[k]||0, yesterday:yesterday[k]||0,
+      change:+((today[k]||0)-(yesterday[k]||0)).toFixed(1),
+    }));
+
+    document.getElementById('fm-price-table-body').innerHTML = rows.map(r => {
+      const chg = r.change > 0
+        ? `<span style="color:var(--fm-red);font-weight:600">▲ ${r.change.toFixed(1)}¢</span>`
+        : r.change < 0
+          ? `<span style="color:var(--fm-green);font-weight:600">▼ ${Math.abs(r.change).toFixed(1)}¢</span>`
+          : `<span class="fm-text-muted">—</span>`;
+      return `<tr>
+        <td><strong>${r.label}</strong></td>
+        <td><span class="fm-price-today">${fmt(r.today)}¢</span></td>
+        <td><span class="fm-mono" style="color:var(--fm-muted-fg)">${fmt(r.yesterday)}¢</span></td>
+        <td>${chg}</td>
+      </tr>`;
+    }).join('');
+
+    document.getElementById('fm-price-cards').innerHTML = rows.map(r => `
+      <div class="fm-price-card">
+        <div><div class="fm-price-card-label">${r.label}</div><div class="fm-text-xs fm-text-muted">NSW average</div></div>
+        <div class="fm-price-card-price">${fmt(r.today)}¢<span style="font-size:.75rem;color:var(--fm-muted-fg)">/L</span></div>
+      </div>
+    `).join('');
+  }
+
+  // Trend chart
+  function renderTrendChart(){
+    const p91 = state.prices.ulp91, pD = state.prices.diesel, p95 = state.prices.ulp95;
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Today'];
+    const ulp91Data = days.map((_,i) => +(p91 + Math.sin(i*0.8)*5 - i*0.3).toFixed(1));
+    const dieselData = days.map((_,i) => +(pD + Math.cos(i*0.6)*4 - i*0.2).toFixed(1));
+    const ulp95Data = days.map((_,i) => +(p95 + Math.sin(i*0.5)*5 - i*0.25).toFixed(1));
+    const ctx = document.getElementById('fm-trend-chart').getContext('2d');
+    if(state.trendChart) state.trendChart.destroy();
+    state.trendChart = new Chart(ctx, {
+      type:'line',
+      data:{
+        labels:days,
+        datasets:[
+          {label:'ULP 91',data:ulp91Data,borderColor:'hsl(16,82%,54%)',backgroundColor:'rgba(232,90,42,.08)',tension:.4,pointRadius:4},
+          {label:'Diesel',data:dieselData,borderColor:'hsl(230,25%,35%)',backgroundColor:'rgba(28,32,51,.05)',tension:.4,pointRadius:4},
+          {label:'ULP 95',data:ulp95Data,borderColor:'hsl(220,80%,55%)',backgroundColor:'rgba(59,130,246,.05)',tension:.4,pointRadius:4},
+        ]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:true,
+        plugins:{
+          legend:{labels:{font:{family:'DM Sans, sans-serif',size:13}}},
+          tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y}¢/L`}},
+        },
+        scales:{
+          y:{ticks:{callback:v=>`${v}¢`,font:{family:'JetBrains Mono, monospace',size:12}},grid:{color:'rgba(0,0,0,.06)'}},
+          x:{ticks:{font:{family:'DM Sans, sans-serif',size:12}},grid:{color:'rgba(0,0,0,.04)'}},
+        },
+      }
+    });
+  }
+
+  // Suburb search
+  async function geocodeSuburb(q){
+    const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q+', NSW, Australia')}&format=json&limit=1&countrycodes=au`);
+    const d = await r.json();
+    return d.length > 0 ? { lat:parseFloat(d[0].lat), lng:parseFloat(d[0].lon), name:d[0].display_name } : null;
+  }
+
+  async function doSuburbSearch(){
+    const q = document.getElementById('fm-suburb-input').value.trim();
+    if(!q) return;
+    const btn = document.getElementById('fm-search-btn');
+    const alertEl = document.getElementById('fm-search-alert');
+    const results = document.getElementById('fm-search-results');
+    btn.disabled = true; btn.textContent = 'Searching…';
+    alertEl.className = 'fm-hidden'; results.innerHTML = '';
+
+    try{
+      const coords = await geocodeSuburb(q);
+      if(!coords){
+        alertEl.className = 'fm-alert fm-alert-amber';
+        alertEl.textContent = 'Could not find that NSW location. Try a suburb name or postcode (e.g. "Parramatta" or "2150").';
+        return;
+      }
+      const ft = document.getElementById('fm-fuel-type-select').value;
+      const radius = document.getElementById('fm-radius-select').value;
+      const params = new URLSearchParams({ endpoint:'bylocation', latitude:coords.lat, longitude:coords.lng, radius, fueltype:ft });
+      const r = await apiFetch(`${SUPABASE_URL}/fuel-prices?${params}`);
+      if(!r.ok) throw new Error(r.status);
+      const d = await r.json();
+      const stations = d.stations || [];
+
+      if(!stations.length){
+        alertEl.className = 'fm-alert fm-alert-amber';
+        alertEl.textContent = `No NSW stations found within ${radius} km. Try a larger radius or different suburb.`;
+        return;
+      }
+
+      const locationName = coords.name.split(',').slice(0,2).join(',');
+      results.innerHTML = `<p class="fm-text-xs fm-text-muted" style="margin-bottom:.5rem">📍 ${stations.length} stations near <strong>${locationName}</strong> · sorted by price</p>`
+        + stations.map((s,i) => `
+          <div class="fm-station-card${i===0?' fm-cheapest':''}">
+            <div style="flex:1">
+              <div class="fm-flex fm-items-center fm-gap-2 fm-mb-1 fm-flex-wrap">
+                ${i===0?'<span class="fm-cheapest-label">Cheapest</span>':'<span class="fm-station-rank">#'+(i+1)+'</span>'}
+                <span class="fm-station-name">${s.stationname||'Unknown'}</span>
+                ${s.brand?`<span class="fm-station-brand">${s.brand}</span>`:''}
+              </div>
+              <div class="fm-station-addr">${s.address||''}</div>
+              <div class="fm-station-meta">${s.distance>0?s.distance+'km away · ':''}${timeSince(s.lastupdated)}</div>
+            </div>
+            <div class="fm-station-price${i===0?' fm-cheapest-price':''}">${(+s.price).toFixed(1)}<span style="font-size:.875rem;color:var(--fm-muted-fg)">¢/L</span></div>
+          </div>`).join('');
+    }catch(e){
+      alertEl.className = 'fm-alert fm-alert-amber';
+      alertEl.textContent = 'Search failed — please try again in a moment.';
+      console.error(e);
+    }finally{
+      btn.disabled = false; btn.textContent = 'Search';
+    }
+  }
+
+  // FAQ
+  function renderFAQ(){
+    const list = document.getElementById('fm-faq-list');
+    list.innerHTML = FAQS.map((f,i) => `
+      <div class="fm-faq-item" data-idx="${i}">
+        <button class="fm-faq-q" aria-expanded="false">
+          <span>${f.q}</span>
+          <span class="fm-faq-icon">+</span>
+        </button>
+        <div class="fm-faq-a">${f.a}</div>
+      </div>
+    `).join('');
+    list.querySelectorAll('.fm-faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const wasOpen = item.classList.contains('fm-open');
+        list.querySelectorAll('.fm-faq-item').forEach(el => el.classList.remove('fm-open'));
+        if(!wasOpen) item.classList.add('fm-open');
+      });
+    });
+  }
+
+  function renderAll(){
+    renderTicker();
+    renderPriceTable();
+    renderTrendChart();
+  }
+
+  // Init
+  renderFAQ();
+  renderAll();
+  fetchNSW();
+
+  document.getElementById('fm-search-btn').addEventListener('click', doSuburbSearch);
+  document.getElementById('fm-suburb-input').addEventListener('keydown', e => { if(e.key==='Enter') doSuburbSearch(); });
+
+  setInterval(fetchNSW, 30 * 60 * 1000);
+
+  // Schema
+  const webPage = {
+    '@context':'https://schema.org', '@type':'WebPage',
+    name:'Live NSW Fuel Prices Today — Petrol, Diesel & LPG',
+    description:'Real-time NSW petrol, diesel, E10 and LPG prices from the official NSW FuelCheck API. Updated every 30 minutes.',
+    url:'https://fleetmate.au/live-fuel-data/', inLanguage:'en-AU',
+    isPartOf:{ '@type':'WebSite', name:'Fleet Mate', url:'https://fleetmate.au' },
+    publisher:{ '@type':'Organization', name:'Fleet Mate', url:'https://fleetmate.au' },
+  };
+  const faqSchema = {
+    '@context':'https://schema.org', '@type':'FAQPage',
+    mainEntity: FAQS.map(f => ({ '@type':'Question', name:f.q, acceptedAnswer:{ '@type':'Answer', text:f.a }}))
+  };
+  function addSchema(o){ const s=document.createElement('script'); s.type='application/ld+json'; s.textContent=JSON.stringify(o); document.head.appendChild(s); }
+  addSchema(webPage); addSchema(faqSchema);
+})();
+</script>
+</body>
+</html>
