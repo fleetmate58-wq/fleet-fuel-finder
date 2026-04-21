@@ -286,16 +286,18 @@
           <div class="fm-label">Statutory Method</div>
           <div class="fm-value" id="fm-stat-value">$9,000</div>
           <div class="fm-formula">Base Value × 20% statutory fraction</div>
+          <div class="fm-formula" style="margin-top:8px;"><strong style="color:var(--ink);">FBT Payable:</strong> <span id="fm-stat-fbt">$8,800</span> <span style="opacity:.8;">(× 2.0802 × 47%)</span></div>
         </div>
 
         <div class="fm-result" id="fm-op-result">
           <div class="fm-label">Operating Cost (Logbook) Method</div>
           <div class="fm-value" id="fm-op-value">$3,600</div>
           <div class="fm-formula">Operating Costs × (100% − Business Use %)</div>
+          <div class="fm-formula" style="margin-top:8px;"><strong style="color:var(--ink);">FBT Payable:</strong> <span id="fm-op-fbt">$3,520</span> <span style="opacity:.8;">(× 2.0802 × 47%)</span></div>
         </div>
 
         <div class="fm-highlight">
-          <div class="fm-label">Potential Taxable Value Reduction</div>
+          <div class="fm-label">Potential FBT Saving (Real Dollars)</div>
           <div class="fm-value" id="fm-savings-value">$5,400</div>
           <div class="fm-sub" id="fm-savings-sub">Switch to the logbook method to reduce your FBT taxable value.</div>
         </div>
@@ -406,8 +408,16 @@
     var op = cost * (1 - bu / 100);
     var savings = stat - op;
 
+    var GROSS_UP = 2.0802;
+    var FBT_RATE = 0.47;
+    var statFbt = stat * GROSS_UP * FBT_RATE;
+    var opFbt = op * GROSS_UP * FBT_RATE;
+    var fbtSavings = statFbt - opFbt;
+
     statValEl.textContent = fmt.format(stat);
     opValEl.textContent = fmt.format(op);
+    root.querySelector('#fm-stat-fbt').textContent = fmt.format(statFbt);
+    root.querySelector('#fm-op-fbt').textContent = fmt.format(opFbt);
     buDisplay.textContent = bu + '%';
 
     statResult.classList.remove('fm-winner');
@@ -415,8 +425,8 @@
 
     if (savings > 0) {
       opResult.classList.add('fm-winner');
-      saveValEl.textContent = fmt.format(savings);
-      saveSubEl.textContent = 'The logbook method reduces your taxable value by this amount — multiply by the 47% FBT rate for real tax savings.';
+      saveValEl.textContent = fmt.format(fbtSavings);
+      saveSubEl.textContent = 'Real-dollar FBT saving using the logbook method (taxable value reduced by ' + fmt.format(savings) + ', grossed up at 2.0802 × 47%).';
     } else if (savings < 0) {
       statResult.classList.add('fm-winner');
       saveValEl.textContent = fmt.format(0);
