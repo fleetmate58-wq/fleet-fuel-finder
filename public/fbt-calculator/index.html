@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FBT Calculator Australia 2025 | Logbook vs Statutory Method | FleetMate</title>
+<meta name="description" content="Free Australian FBT calculator. Compare the Statutory Method vs Operating Cost (logbook) method instantly and see how much fringe benefits tax you can save.">
+<meta name="keywords" content="fbt calculator, fbt tax, fringe benefits tax, fbt australia, logbook method, statutory method, fbt year, fbt exemption, how does fbt work">
+<link rel="canonical" href="https://fleetmate.au/fbt-calculator/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Australian FBT Calculator — Logbook vs Statutory Method",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "AUD"},
+  "description": "Calculate fringe benefits tax (FBT) on company vehicles using the Statutory Method and the Operating Cost (logbook) Method."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is FBT in Australia?","acceptedAnswer":{"@type":"Answer","text":"Fringe Benefits Tax (FBT) is an Australian tax employers pay on non-cash benefits provided to employees, such as a company car. The fringe benefits definition covers perks in addition to salary."}},
+    {"@type":"Question","name":"Who pays fringe benefits tax and how does it work?","acceptedAnswer":{"@type":"Answer","text":"The employer pays FBT, not the employee. FBT reporting is done annually via an FBT return and is separate from payroll tax."}},
+    {"@type":"Question","name":"What are the FBT year dates?","acceptedAnswer":{"@type":"Answer","text":"The FBT financial year runs from 1 April to 31 March."}},
+    {"@type":"Question","name":"What are some fringe benefits examples and exemptions?","acceptedAnswer":{"@type":"Answer","text":"Examples include company cars, low-interest loans, and entertainment. Exempt fringe benefits include certain work-related portable electronic devices."}},
+    {"@type":"Question","name":"How is FBT calculated and what is grossing up?","acceptedAnswer":{"@type":"Answer","text":"FBT is calculated by grossing up the taxable value (Type 1 gross-up rate 2.0802, Type 2 gross-up rate 1.8868) and applying the 47% FBT rate."}}
+  ]
+}
+</script>
+
+<style>
+#fleetmate-fbt-calc {
+  --orange: #E8562A;
+  --orange-dark: #c5471f;
+  --orange-soft: #fff1ec;
+  --ink: #1a1a1a;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --bg: #ffffff;
+  --soft: #fafafa;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.6;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px;
+  box-sizing: border-box;
+}
+#fleetmate-fbt-calc *, #fleetmate-fbt-calc *::before, #fleetmate-fbt-calc *::after { box-sizing: border-box; }
+
+#fleetmate-fbt-calc .fm-hero { text-align: center; padding: 24px 0 36px; }
+#fleetmate-fbt-calc .fm-hero .fm-eyebrow {
+  display: inline-block; background: var(--orange-soft); color: var(--orange-dark);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 999px; margin-bottom: 16px;
+}
+#fleetmate-fbt-calc .fm-hero h1 {
+  font-size: clamp(28px, 5vw, 44px); font-weight: 700; margin: 0 0 14px;
+  line-height: 1.15; letter-spacing: -0.02em;
+}
+#fleetmate-fbt-calc .fm-hero h1 span { color: var(--orange); }
+#fleetmate-fbt-calc .fm-hero p {
+  font-size: 17px; color: var(--muted); max-width: 640px; margin: 0 auto;
+}
+
+#fleetmate-fbt-calc .fm-card {
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(232,86,42,.06);
+  border: 1px solid var(--line);
+  padding: 32px;
+  margin-bottom: 28px;
+}
+
+#fleetmate-fbt-calc .fm-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+}
+@media (max-width: 760px) {
+  #fleetmate-fbt-calc .fm-grid { grid-template-columns: 1fr; gap: 24px; }
+  #fleetmate-fbt-calc .fm-card { padding: 22px; }
+}
+
+#fleetmate-fbt-calc .fm-col h2 {
+  font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted); margin: 0 0 18px;
+}
+
+#fleetmate-fbt-calc label {
+  display: block; font-size: 14px; font-weight: 500; color: var(--ink);
+  margin-bottom: 8px;
+}
+#fleetmate-fbt-calc .fm-field { margin-bottom: 18px; }
+#fleetmate-fbt-calc .fm-hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+#fleetmate-fbt-calc .fm-input-wrap { position: relative; }
+#fleetmate-fbt-calc .fm-input-wrap .fm-prefix,
+#fleetmate-fbt-calc .fm-input-wrap .fm-suffix {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  color: var(--muted); font-weight: 500; pointer-events: none; font-size: 15px;
+}
+#fleetmate-fbt-calc .fm-input-wrap .fm-prefix { left: 14px; }
+#fleetmate-fbt-calc .fm-input-wrap .fm-suffix { right: 14px; }
+#fleetmate-fbt-calc input[type="number"] {
+  width: 100%; padding: 13px 14px; font-size: 15px; font-family: inherit;
+  border: 1px solid var(--line); border-radius: 10px; background: #fff;
+  color: var(--ink); outline: none; transition: border .15s, box-shadow .15s;
+  -moz-appearance: textfield;
+}
+#fleetmate-fbt-calc input[type="number"]::-webkit-outer-spin-button,
+#fleetmate-fbt-calc input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; margin: 0;
+}
+#fleetmate-fbt-calc .fm-input-wrap.fm-has-prefix input { padding-left: 30px; }
+#fleetmate-fbt-calc .fm-input-wrap.fm-has-suffix input { padding-right: 34px; }
+#fleetmate-fbt-calc input[type="number"]:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(232,86,42,.15);
+}
+
+#fleetmate-fbt-calc input[type="range"] {
+  width: 100%; -webkit-appearance: none; appearance: none;
+  height: 6px; background: var(--line); border-radius: 999px; outline: none;
+  margin-top: 10px;
+}
+#fleetmate-fbt-calc input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 20px; height: 20px;
+  background: var(--orange); border-radius: 50%; cursor: pointer;
+  box-shadow: 0 2px 6px rgba(232,86,42,.4);
+}
+#fleetmate-fbt-calc input[type="range"]::-moz-range-thumb {
+  width: 20px; height: 20px; background: var(--orange); border-radius: 50%;
+  cursor: pointer; border: none; box-shadow: 0 2px 6px rgba(232,86,42,.4);
+}
+
+#fleetmate-fbt-calc .fm-result {
+  background: var(--soft); border: 1px solid var(--line); border-radius: 12px;
+  padding: 18px; margin-bottom: 14px;
+}
+#fleetmate-fbt-calc .fm-result .fm-label {
+  font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted); margin-bottom: 6px;
+}
+#fleetmate-fbt-calc .fm-result .fm-value {
+  font-size: 26px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums;
+}
+#fleetmate-fbt-calc .fm-result .fm-formula {
+  font-size: 12px; color: var(--muted); margin-top: 6px;
+}
+#fleetmate-fbt-calc .fm-result.fm-winner {
+  background: var(--orange-soft); border-color: rgba(232,86,42,.3);
+}
+#fleetmate-fbt-calc .fm-result.fm-winner .fm-value { color: var(--orange-dark); }
+
+#fleetmate-fbt-calc .fm-highlight {
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+  color: #fff; border-radius: 12px; padding: 22px; margin-top: 18px;
+  box-shadow: 0 8px 24px rgba(232,86,42,.25);
+}
+#fleetmate-fbt-calc .fm-highlight .fm-label {
+  font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  opacity: 0.9; margin-bottom: 8px;
+}
+#fleetmate-fbt-calc .fm-highlight .fm-value {
+  font-size: 34px; font-weight: 700; font-variant-numeric: tabular-nums;
+}
+#fleetmate-fbt-calc .fm-highlight .fm-sub { font-size: 13px; opacity: 0.9; margin-top: 6px; }
+
+#fleetmate-fbt-calc .fm-cta-wrap { text-align: center; margin-top: 28px; }
+#fleetmate-fbt-calc .fm-cta {
+  display: inline-block; background: var(--orange); color: #fff;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  padding: 14px 32px; border-radius: 999px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  transition: background .15s, transform .15s, box-shadow .15s;
+  box-shadow: 0 4px 14px rgba(232,86,42,.3);
+}
+#fleetmate-fbt-calc .fm-cta:hover {
+  background: var(--orange-dark); transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(232,86,42,.4);
+}
+
+#fleetmate-fbt-calc .fm-section-title {
+  font-size: 26px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em;
+}
+#fleetmate-fbt-calc .fm-divider { width: 48px; height: 3px; background: var(--orange); border-radius: 2px; margin-bottom: 20px; }
+
+#fleetmate-fbt-calc .fm-eeat ul { padding-left: 20px; color: var(--muted); }
+#fleetmate-fbt-calc .fm-eeat ul li { margin-bottom: 8px; }
+#fleetmate-fbt-calc .fm-disclaimer {
+  font-size: 12px; color: var(--muted); margin-top: 16px;
+  padding-top: 16px; border-top: 1px solid var(--line);
+  font-style: italic;
+}
+
+#fleetmate-fbt-calc details {
+  border: 1px solid var(--line); border-radius: 12px; padding: 0;
+  margin-bottom: 10px; background: #fff; overflow: hidden;
+  transition: box-shadow .2s, border-color .2s;
+}
+#fleetmate-fbt-calc details[open] { border-color: rgba(232,86,42,.35); box-shadow: 0 4px 14px rgba(232,86,42,.06); }
+#fleetmate-fbt-calc summary {
+  list-style: none; cursor: pointer; padding: 18px 22px; font-weight: 600;
+  font-size: 16px; color: var(--ink); position: relative; padding-right: 52px;
+  transition: background .15s;
+}
+#fleetmate-fbt-calc summary::-webkit-details-marker { display: none; }
+#fleetmate-fbt-calc summary::marker { content: ""; }
+#fleetmate-fbt-calc summary:hover { background: var(--soft); }
+#fleetmate-fbt-calc summary::after {
+  content: "+"; position: absolute; right: 22px; top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px; border-radius: 50%; background: var(--orange-soft);
+  color: var(--orange); font-size: 20px; font-weight: 400; line-height: 28px;
+  text-align: center; transition: transform .2s, background .2s, color .2s;
+}
+#fleetmate-fbt-calc details[open] summary::after {
+  content: "−"; background: var(--orange); color: #fff;
+}
+#fleetmate-fbt-calc details .fm-answer {
+  padding: 0 22px 20px; color: var(--muted); font-size: 15px; line-height: 1.7;
+}
+#fleetmate-fbt-calc details .fm-answer p { margin: 0 0 10px; }
+#fleetmate-fbt-calc details .fm-answer strong { color: var(--ink); font-weight: 600; }
+
+#fleetmate-fbt-calc .fm-footnote { text-align: center; color: var(--muted); font-size: 13px; margin-top: 32px; }
+#fleetmate-fbt-calc .fm-footnote a { color: var(--orange); text-decoration: none; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<main id="fleetmate-fbt-calc">
+
+  <section class="fm-hero">
+    <span class="fm-eyebrow">FBT Calculator Australia</span>
+    <h1>Calculate Your <span>FBT Savings</span></h1>
+    <p>Compare the <strong>Statutory Method</strong> with the <strong>Operating Cost (Logbook) Method</strong>. A 12-week logbook can save Australian businesses thousands in fringe benefits tax every year.</p>
+  </section>
+
+  <section class="fm-card" aria-labelledby="fm-calc-title">
+    <h2 id="fm-calc-title" style="margin:0 0 22px;font-size:20px;font-weight:700;">Logbook vs. Statutory Method Calculator</h2>
+
+    <div class="fm-grid">
+      <div class="fm-col">
+        <h2>Your Vehicle Details</h2>
+
+        <div class="fm-field">
+          <label for="fm-base-value">Vehicle Base Value</label>
+          <div class="fm-input-wrap fm-has-prefix">
+            <span class="fm-prefix">$</span>
+            <input type="number" id="fm-base-value" value="45000" min="0" step="500" inputmode="numeric">
+          </div>
+          <div class="fm-hint">The GST-inclusive cost of the vehicle when first acquired.</div>
+        </div>
+
+        <div class="fm-field">
+          <label for="fm-operating-costs">Total Annual Operating Costs</label>
+          <div class="fm-input-wrap fm-has-prefix">
+            <span class="fm-prefix">$</span>
+            <input type="number" id="fm-operating-costs" value="12000" min="0" step="100" inputmode="numeric">
+          </div>
+          <div class="fm-hint">Fuel, rego, insurance, servicing, depreciation & interest.</div>
+        </div>
+
+        <div class="fm-field">
+          <label for="fm-business-use">Estimated Business Use: <strong id="fm-business-use-display" style="color:var(--orange);">70%</strong></label>
+          <div class="fm-input-wrap fm-has-suffix">
+            <span class="fm-suffix">%</span>
+            <input type="number" id="fm-business-use" value="70" min="0" max="100" step="1" inputmode="numeric">
+          </div>
+          <input type="range" id="fm-business-use-slider" value="70" min="0" max="100" step="1">
+          <div class="fm-hint">Evidence-based percentage from your 12-week logbook.</div>
+        </div>
+      </div>
+
+      <div class="fm-col">
+        <h2>Taxable Value Comparison</h2>
+
+        <div class="fm-result" id="fm-stat-result">
+          <div class="fm-label">Statutory Method</div>
+          <div class="fm-value" id="fm-stat-value">$9,000</div>
+          <div class="fm-formula">Base Value × 20% statutory fraction</div>
+        </div>
+
+        <div class="fm-result" id="fm-op-result">
+          <div class="fm-label">Operating Cost (Logbook) Method</div>
+          <div class="fm-value" id="fm-op-value">$3,600</div>
+          <div class="fm-formula">Operating Costs × (100% − Business Use %)</div>
+        </div>
+
+        <div class="fm-highlight">
+          <div class="fm-label">Potential Taxable Value Reduction</div>
+          <div class="fm-value" id="fm-savings-value">$5,400</div>
+          <div class="fm-sub" id="fm-savings-sub">Switch to the logbook method to reduce your FBT taxable value.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fm-cta-wrap">
+      <a href="https://fleetmate.au/contacts/" target="_blank" rel="noopener" class="fm-cta">Start a 12-Week Logbook with FleetMate</a>
+    </div>
+  </section>
+
+  <section class="fm-card fm-eeat">
+    <h2 class="fm-section-title">About this Data</h2>
+    <div class="fm-divider"></div>
+    <ul>
+      <li>Calculations follow the <strong>Australian Taxation Office (ATO)</strong> guidelines for car fringe benefits.</li>
+      <li>The <strong>Statutory Method</strong> uses a single statutory fraction of <strong>20%</strong> applied to the vehicle's base value (post-10 May 2011 contracts).</li>
+      <li>The <strong>Operating Cost Method</strong> requires a valid <strong>12-week logbook</strong> to substantiate business use percentage.</li>
+      <li>FBT is payable by the employer at the rate of <strong>47%</strong> on the grossed-up taxable value.</li>
+    </ul>
+    <p class="fm-disclaimer">Disclaimer: This calculator provides an estimate of the taxable value under each method for comparison purposes only. It does not account for gross-up rates, employee contributions, or specific exemptions. Always consult a registered tax agent or the ATO before lodging your FBT return.</p>
+  </section>
+
+  <section class="fm-card">
+    <h2 class="fm-section-title">Frequently Asked Questions</h2>
+    <div class="fm-divider"></div>
+
+    <details>
+      <summary>What is FBT in Australia?</summary>
+      <div class="fm-answer">
+        <p><strong>FBT</strong> (the <strong>fringe benefit tax</strong>) is a tax employers pay on certain non-cash benefits provided to employees or their associates. So <strong>what does FBT mean</strong> in practice? It means if a business hands over something extra — like a company car, private health cover, or a low-interest loan — the ATO treats it as a <strong>fringe benefit</strong> and taxes the employer on the value.</p>
+        <p>The <strong>fringe benefits meaning</strong> (or <strong>fringe benefits definition</strong>) under Australian law covers perks provided <em>in respect of employment</em>, in addition to salary or wages. The <strong>fringe benefits defined</strong> list includes cars, expense payments, housing, entertainment and more. If you've ever wondered <strong>what is a fringe benefit in Australia</strong>, or <strong>what is FBT</strong> and <strong>what is FBT Australia</strong> all about — this is it: a separate tax (<strong>FBT AU</strong>) run alongside income tax, designed to stop benefits-in-kind avoiding tax.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Who pays fringe benefits tax and how does it work?</summary>
+      <div class="fm-answer">
+        <p><strong>Who pays fringe benefits tax?</strong> Employers do — not employees. So <strong>who pays FBT</strong> ultimately comes down to the business providing the benefit, which is one of the biggest surprises for new business owners. The <strong>FBT liability</strong> sits squarely with the employer, even though <strong>what are fringe benefits for employees</strong> are enjoyed personally by staff.</p>
+        <p><strong>How does FBT work?</strong> Employers identify every <strong>taxable fringe benefit</strong> provided during the FBT year, gross it up, apply the 47% rate, and lodge an annual FBT return — that's <strong>FBT reporting</strong> in a nutshell. <strong>What is a taxable fringe benefit</strong>? Anything provided in connection with employment that isn't exempt.</p>
+        <p>Note that <strong>payroll tax and FBT</strong> are different taxes: <strong>payroll tax fringe benefits</strong> may be included in state payroll tax calculations (at the grossed-up value) but FBT itself is a separate federal liability.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What are the FBT year dates?</summary>
+      <div class="fm-answer">
+        <p>The <strong>FBT year</strong> in Australia is different from the normal income tax year. <strong>FBT year dates</strong> run from <strong>1 April to 31 March</strong> the following year — so the <strong>FBT financial year</strong> 2025 covers 1 April 2024 to 31 March 2025.</p>
+        <p>The <strong>FBT year meaning</strong>? It's simply the 12-month period the ATO uses to calculate fringe benefits tax. <strong>When does FBT year end?</strong> 31 March. Employers then have until 21 May (or later if lodging via a tax agent) to lodge their FBT return and pay any liability.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What are some fringe benefits examples and exemptions?</summary>
+      <div class="fm-answer">
+        <p>Common <strong>fringe benefits examples</strong> include: a company car used privately, gym memberships, school fees, low-interest loans, entertainment and meals, car parking, and expense reimbursements. Each type has its own valuation rules.</p>
+        <p>Not everything attracts tax though. <strong>Exempt fringe benefits</strong> include a single work-related portable electronic device per year (laptop, phone, tablet), protective clothing, minor benefits under $300, and certain relocation costs. Claiming an <strong>FBT exemption</strong> correctly can meaningfully reduce an employer's liability — but the rules are strict, and records must be kept.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How is FBT calculated and what is grossing up?</summary>
+      <div class="fm-answer">
+        <p><strong>How much is FBT?</strong> The FBT rate in Australia is <strong>47%</strong>, applied to the <em>grossed-up</em> taxable value — not the raw value of the benefit. Grossing up puts the benefit on equal footing with a salary that would produce the same after-tax amount.</p>
+        <p>There are two gross-up rates. <strong>FBT Type 1</strong> applies where the employer is entitled to claim GST credits on the benefit — the Type 1 rate is <strong>2.0802</strong>. The <strong>Type 2 gross-up rate</strong> of <strong>1.8868</strong> applies where no GST credit is available.</p>
+        <p>So the formula is: <strong>FBT payable = Taxable value × gross-up rate × 47%</strong>. Once a benefit is <strong>FBT grossed up</strong>, the employer multiplies by 47% to find the tax owed. That's why reducing the <em>taxable value</em> — by switching from the statutory method to a logbook — has such a powerful multiplier effect on the final bill.</p>
+      </div>
+    </details>
+  </section>
+
+  <p class="fm-footnote">Powered by <a href="https://fleetmate.au" target="_blank" rel="noopener">FleetMate</a> — Australian fleet management & compliance.</p>
+
+</main>
+
+<script>
+(function(){
+  var root = document.getElementById('fleetmate-fbt-calc');
+  if (!root) return;
+
+  var baseEl = root.querySelector('#fm-base-value');
+  var costEl = root.querySelector('#fm-operating-costs');
+  var buEl = root.querySelector('#fm-business-use');
+  var buSlider = root.querySelector('#fm-business-use-slider');
+  var buDisplay = root.querySelector('#fm-business-use-display');
+  var statValEl = root.querySelector('#fm-stat-value');
+  var opValEl = root.querySelector('#fm-op-value');
+  var saveValEl = root.querySelector('#fm-savings-value');
+  var saveSubEl = root.querySelector('#fm-savings-sub');
+  var statResult = root.querySelector('#fm-stat-result');
+  var opResult = root.querySelector('#fm-op-result');
+
+  var fmt = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
+
+  function num(el, min, max){
+    var v = parseFloat(el.value);
+    if (isNaN(v)) v = 0;
+    if (typeof min === 'number' && v < min) v = min;
+    if (typeof max === 'number' && v > max) v = max;
+    return v;
+  }
+
+  function calc(){
+    var base = num(baseEl, 0);
+    var cost = num(costEl, 0);
+    var bu = num(buEl, 0, 100);
+
+    var stat = base * 0.20;
+    var op = cost * (1 - bu / 100);
+    var savings = stat - op;
+
+    statValEl.textContent = fmt.format(stat);
+    opValEl.textContent = fmt.format(op);
+    buDisplay.textContent = bu + '%';
+
+    statResult.classList.remove('fm-winner');
+    opResult.classList.remove('fm-winner');
+
+    if (savings > 0) {
+      opResult.classList.add('fm-winner');
+      saveValEl.textContent = fmt.format(savings);
+      saveSubEl.textContent = 'The logbook method reduces your taxable value by this amount — multiply by the 47% FBT rate for real tax savings.';
+    } else if (savings < 0) {
+      statResult.classList.add('fm-winner');
+      saveValEl.textContent = fmt.format(0);
+      saveSubEl.textContent = 'The statutory method is lower for these inputs. Keep tracking — business use often increases over 12 weeks.';
+    } else {
+      saveValEl.textContent = fmt.format(0);
+      saveSubEl.textContent = 'Both methods produce the same taxable value at these inputs.';
+    }
+  }
+
+  function syncFromSlider(){
+    buEl.value = buSlider.value;
+    calc();
+  }
+  function syncFromInput(){
+    var v = num(buEl, 0, 100);
+    buEl.value = v;
+    buSlider.value = v;
+    calc();
+  }
+
+  [baseEl, costEl].forEach(function(el){ el.addEventListener('input', calc); });
+  buEl.addEventListener('input', syncFromInput);
+  buSlider.addEventListener('input', syncFromSlider);
+
+  calc();
+})();
+</script>
+</body>
+</html>
